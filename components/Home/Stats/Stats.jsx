@@ -37,7 +37,7 @@ export default Stats;
 // Tailwind Styled Components
 
 const Wrapper = tw.section`
-  pt-44
+  pt-40
 `;
 
 const Container = tw.div`
@@ -71,7 +71,7 @@ const GlobeMainContainer = tw.div`
   top-0
   left-1/2
   -translate-x-1/2
-  -translate-y-10
+  -translate-y-8
 `;
 
 const StatsContainer = tw.div`

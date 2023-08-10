@@ -136,6 +136,22 @@ const Footer = () => {
             </NavItemsContainer>
           </ResourceContainer>
         </MainContainer>
+        <BottomContainer>
+          <BottomMainContainer>
+            <CopyrightContainer>
+              © 2018 - 2022 Ozone Networks, Inc
+            </CopyrightContainer>
+            <PPAndTOSContainer>
+              <Link href="/">
+                <PP>Privacy Policy</PP>
+              </Link>
+
+              <Link href="/">
+                <TOS>Terms of Service</TOS>
+              </Link>
+            </PPAndTOSContainer>
+          </BottomMainContainer>
+        </BottomContainer>
       </Container>
     </Wrapper>
   );
@@ -151,12 +167,12 @@ const Wrapper = tw.section`
 `;
 
 const Container = tw.div`
-  w-11/12
-  lg:max-w-[100rem] 
-  mx-auto
 `;
 
 const MainContainer = tw.div`
+  w-11/12
+  lg:max-w-[100rem] 
+  mx-auto
   py-24
   grid
   grid-cols-[2.3fr_1fr_1fr_1fr]
@@ -234,15 +250,47 @@ const SubmitBtn = tw.div`
   h-full
   px-3.5
   bg-[#1D1D1D]
+  hover:bg-[#4E55FF]
   absolute
   top-0
   right-0
   flex
   justify-center
   items-center
+  transition-all
+  ease-in-out
+  duration-300
+  cursor-pointer
 `;
 
 const SendIcon = tw.img`
   w-[1.48rem]
   h-auto
 `;
+
+const BottomContainer = tw.div`
+  py-6
+  border-t
+  border-[#414141]
+`;
+
+const BottomMainContainer = tw.div`
+  w-11/12
+  lg:max-w-[100rem] 
+  mx-auto
+  flex
+  justify-between
+  text-white
+`;
+
+const CopyrightContainer = tw.div``;
+
+const PPAndTOSContainer = tw.div`
+  flex
+  items-center
+  gap-x-8
+`;
+
+const PP = tw.div``;
+
+const TOS = tw.div``;

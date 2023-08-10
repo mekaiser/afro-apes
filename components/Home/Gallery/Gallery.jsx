@@ -122,7 +122,7 @@ const GalBtn = tw.div`
 `;
 
 const GalleryContainer = tw.div`
-  mt-40
+  mt-44
   h-[30rem]
   lg:h-[35rem]
   grid
