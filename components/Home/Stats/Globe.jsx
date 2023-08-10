@@ -38,8 +38,8 @@ const Globe = () => {
       {isDOMLoaded && (
         <ReactGlobe
           ref={globeEl}
-          width={1000}
-          height={1000}
+          width={1200}
+          height={1200}
           backgroundColor="rgba(255,255,255,0)"
           globeImageUrl={"/assets/imgs/globe-bg.svg"}
           hexPolygonsData={hex.features}

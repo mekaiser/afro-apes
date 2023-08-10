@@ -61,7 +61,7 @@ const Subtitle = tw.p`
 `;
 
 const GlobeContainer = tw.div`
-  h-[26rem]
+  h-[28rem]
   relative
   overflow-hidden
 `;
@@ -71,7 +71,7 @@ const GlobeMainContainer = tw.div`
   top-0
   left-1/2
   -translate-x-1/2
-  -translate-y-4
+  -translate-y-10
 `;
 
 const StatsContainer = tw.div`
@@ -84,7 +84,7 @@ const StatsContainer = tw.div`
 const StatsMainContainer = tw.div`
   py-12
   w-11/12
-  lg:max-w-[60rem] 
+  lg:max-w-[55rem] 
   mx-auto
   flex
   justify-between
