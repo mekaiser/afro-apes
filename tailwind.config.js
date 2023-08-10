@@ -23,6 +23,7 @@ module.exports = {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
         gesrics: ["var(--font-gesrics-font)"],
+        jost: ["Jost", "sans-serif"],
       },
     },
   },

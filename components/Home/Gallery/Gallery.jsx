@@ -58,6 +58,7 @@ const Gallery = () => {
         <GalleryContainer>
           {selectedGal.imgs.map((img, i) => (
             <GalImg
+              key={img}
               style={{ backgroundImage: `url(${img})` }}
               $selectedGalLen={selectedGal.imgs.length}
               $index={i}
@@ -74,7 +75,8 @@ export default Gallery;
 // Tailwind Styled Components
 
 const Wrapper = tw.section`
-  py-44
+  pt-52
+  pb-48
 `;
 
 const Container = tw.div`
@@ -88,7 +90,7 @@ const TitleContainer = tw.div`
   justify-center
 `;
 
-const Title = tw.h1`
+const Title = tw.h2`
   max-w-3xl
   text-6xl
   font-bold
@@ -125,7 +127,7 @@ const GalleryContainer = tw.div`
   grid
   grid-cols-4
   grid-rows-2
-  gap-10
+  gap-9
 `;
 
 const GalImg = tw.div`

@@ -39,7 +39,7 @@ const Nav = () => {
 
           <NavItemsMiddle>
             {navItems.map((navItem) => (
-              <NavItem>
+              <NavItem key={navItem.name}>
                 <Link href={navItem.link} passHref>
                   <NavItemText>{navItem.name}</NavItemText>
                 </Link>
