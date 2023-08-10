@@ -76,6 +76,7 @@ const NavBar = tw.nav`
   h-full
   flex
   items-center
+  justify-center
 `;
 
 const MainContainer = tw.div`

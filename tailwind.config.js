@@ -16,6 +16,7 @@ module.exports = {
       },
       boxShadow: {
         purple: "0px 10px 25px 0px #635BFF66",
+        gray: "0px 4px 39px 0px #0000001C"
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

@@ -15,8 +15,8 @@
   }
 }
 
-@layer components {
+/* @layer components {
   .container {
     @apply w-11/12 lg:max-w-[80rem] mx-auto;
   }
-}
+} */
