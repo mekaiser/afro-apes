@@ -123,29 +123,35 @@ const GalBtn = tw.div`
 
 const GalleryContainer = tw.div`
   mt-40
-  h-[35rem]
+  h-[30rem]
+  lg:h-[35rem]
   grid
-  grid-cols-4
-  grid-rows-2
-  gap-9
+  grid-cols-2
+  md:grid-cols-4
+  grid-rows-4
+  md:grid-rows-2
+  gap-5
+  md:gap-6
+  lg:gap-9
 `;
 
 const GalImg = tw.div`
-  ${(p) => p.$selectedGalLen === 5 && p.$index === 0 && "col-span-2 row-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 0 && "col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 1 && "col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 2 && "col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 3 && "col-span-2"}
+  ${(p) => p.$selectedGalLen === 5 && p.$index === 0 && "col-span-2 row-span-2 md:col-span-2 md:row-span-2"}
+  ${(p) => p.$selectedGalLen === 4 && p.$index === 0 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) => p.$selectedGalLen === 4 && p.$index === 1 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) => p.$selectedGalLen === 4 && p.$index === 2 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) => p.$selectedGalLen === 4 && p.$index === 3 && "max-md:row-span-2 md:col-span-2"}
   ${(p) => p.$selectedGalLen === 3 && p.$index === 0 && "col-span-2 row-span-2"}
-  ${(p) => p.$selectedGalLen === 3 && p.$index === 1 && "col-span-2"}
-  ${(p) => p.$selectedGalLen === 3 && p.$index === 2 && "col-span-2"}
+  ${(p) => p.$selectedGalLen === 3 && p.$index === 1 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) => p.$selectedGalLen === 3 && p.$index === 2 && "max-md:row-span-2 md:col-span-2"}
   ${(p) =>
     p.$selectedGalLen === 2 &&
     (p.$index === 0 || p.$index === 1) &&
     "col-span-2 row-span-2"}
-  ${(p) => p.$selectedGalLen === 1 && "col-span-4 row-span-4"}
+  ${(p) => p.$selectedGalLen === 1 && "max-md:col-span-2 max-md:row-span-4 md:col-span-4 md:row-span-4"}
   bg-cover
   bg-no-repeat
   bg-center
-  rounded-xl
+  rounded-lg
+  md:rounded-xl
 `;
