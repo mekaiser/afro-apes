@@ -1,5 +1,4 @@
 import Button from "@/components/Shared/Button";
-import React from "react";
 import tw from "tailwind-styled-components";
 
 const Hero = () => {
@@ -8,18 +7,26 @@ const Hero = () => {
       <Container>
         <WorldImg></WorldImg>
         <InnerContainer>
-          <LeftContainer>
-            <StartingTitle>Our Fund, Your Profit</StartingTitle>
-            <Title>
-              <TFirstLine>Funding Promising</TFirstLine>
-              <TSecondLine>
-                <TGradWrd>Forex Traders</TGradWrd> Worldwide
-              </TSecondLine>
-            </Title>
-            <Subtitle>
+          <Planet src="/assets/icons/planet.svg" />
+          <Star1 src="/assets/icons/star.svg" />
+          <Star2 src="/assets/icons/star.svg" />
+          <Star3 src="/assets/icons/star.svg" />
+          <Star4 src="/assets/icons/star.svg" />
+          <Star5 src="/assets/icons/star.svg" />
+          <StarGroup src="/assets/icons/star-group.svg" />
+
+          <LContainer>
+            <LStartingTitle>Our Fund, Your Profit</LStartingTitle>
+            <LTitle>
+              <LTFirstLine>Funding Promising</LTFirstLine>
+              <LTSecondLine>
+                <LTGradWrd>Forex Traders</LTGradWrd> Worldwide
+              </LTSecondLine>
+            </LTitle>
+            <LSubtitle>
               FundedNext offers up to $200,000 funds to financially empower
               global traders and help them earn full-time.
-            </Subtitle>
+            </LSubtitle>
             <BtnsContainer>
               <Button name="Get Funded" />
               <Button name="Join Our Discord" />
@@ -33,7 +40,15 @@ const Hero = () => {
                 <SocialIcon src="/assets/icons/icon-facebook.svg" alt="" />
               </SocialsContainer>
             </JoinComContainer>
-          </LeftContainer>
+          </LContainer>
+          <RightContainer>
+            <TextContainer>
+              <RStartingTitle>Introducing</RStartingTitle>
+              <RTitle>
+                Stellar <br /> Challenge
+              </RTitle>
+            </TextContainer>
+          </RightContainer>
         </InnerContainer>
       </Container>
     </Wrapper>
@@ -52,29 +67,34 @@ const Container = tw.div`
   w-11/12
   lg:max-w-[110rem] 
   mx-auto
-  rounded-xl
+  rounded-[2.5rem]
   overflow-hidden
   relative
 `;
 
 const InnerContainer = tw.div`
   py-28
-  pl-72
+  pl-[16%]
+  pr-[4%]
   bg-hero_bg
+  grid
+  grid-cols-2
   relative
   z-20
 `;
 
-const LeftContainer = tw.div``;
+const LContainer = tw.div`
+  z-10
+`;
 
-const StartingTitle = tw.span`
+const LStartingTitle = tw.span`
   font-semibold
-  bg-hero_starting_title
+  bg-hero_left_starting_title
   bg-clip-text
   text-transparent
 `;
 
-const Title = tw.h1`
+const LTitle = tw.h1`
   mt-4
   font-bold
   text-white
@@ -82,15 +102,15 @@ const Title = tw.h1`
   leading-snug
 `;
 
-const TFirstLine = tw.span`
+const LTFirstLine = tw.span`
   block
 `;
 
-const TSecondLine = tw.span`
+const LTSecondLine = tw.span`
   block
 `;
 
-const TGradWrd = tw.span`
+const LTGradWrd = tw.span`
   bg-clip-text 
   text-transparent 
   bg-gradient-to-r 
@@ -98,7 +118,7 @@ const TGradWrd = tw.span`
   to-[#EF3DFF]
 `;
 
-const Subtitle = tw.p`
+const LSubtitle = tw.p`
   mt-3
   max-w-[32rem]
   text-[#D8D8D8]
@@ -112,23 +132,23 @@ const BtnsContainer = tw.div`
 
 const JoinComContainer = tw.div`
   mt-8
-`
+`;
 
 const JoinComTitle = tw.div`
   text-[#D8D8D8]
   font-medium
-`
+`;
 
-const SocialsContainer  = tw.div`
-  mt-3
+const SocialsContainer = tw.div`
+  mt-3.5
   flex
-  gap-x-6
-`
+  gap-x-5
+`;
 
 const SocialIcon = tw.img`
   w-[2rem]
   h-[2rem]
-`
+`;
 
 const WorldImg = tw.div`
   h-full
@@ -143,4 +163,95 @@ const WorldImg = tw.div`
   rounded-xl
   overflow-hidden
   z-10
-`
+`;
+
+const RightContainer = tw.div`
+  w-full
+  max-w-[29rem]
+  aspect-[4/3]
+  bg-[url('/assets/imgs/hero-right-rectangle.svg')]
+  bg-contain
+  bg-no-repeat
+  bg-center
+  justify-self-end
+  self-center
+  z-10
+`;
+
+const TextContainer = tw.div``;
+
+const RStartingTitle = tw.div`
+  mt-20
+  text-white
+  text-center
+  text-lg
+  font-gesrics  
+`;
+
+const RTitle = tw.div`
+  mt-3
+  text-white
+  text-center
+  text-[2.5rem]
+  font-gesrics
+  leading-snug
+  bg-hero_right_title
+  bg-clip-text 
+  text-transparent
+  shadow_white_purple
+`;
+
+const Planet = tw.img`
+  absolute
+  w-28
+  h-auto
+  bottom-[24%]
+  left-[46%]
+`;
+const Star1 = tw.img`
+  absolute
+  w-6
+  h-auto
+  top-[30%]
+  left-[8%]
+`;
+
+const Star2 = tw.img`
+  absolute
+  w-5
+  h-auto
+  top-[12%]
+  left-[54%]
+`;
+
+const Star3 = tw.img`
+  absolute
+  w-3
+  h-auto
+  bottom-[12%]
+  left-[34%]
+`;
+
+const Star4 = tw.img`
+  absolute
+  w-3
+  h-auto
+  bottom-[28%]
+  left-[61%]
+`;
+
+const Star5 = tw.img`
+  absolute
+  w-3
+  h-auto
+  bottom-[58%]
+  left-[67%]
+`;
+
+const StarGroup = tw.img`
+  absolute
+  w-auto
+  h-[95%]
+  top-4
+  left-[63%]
+`;

@@ -13,7 +13,7 @@ export default Button;
 // Tailwind Styled Components
 
 const Container = tw.div`
-  px-5
+  px-7
   py-3
   flex
   justify-center

@@ -79,7 +79,7 @@ const Wrapper = tw.section`
 
 const Container = tw.div`
   w-11/12
-  lg:max-w-[90rem] 
+  lg:max-w-[100rem] 
   mx-auto
 `;
 
@@ -125,7 +125,7 @@ const GalleryContainer = tw.div`
   grid
   grid-cols-4
   grid-rows-2
-  gap-9
+  gap-10
 `;
 
 const GalImg = tw.div`

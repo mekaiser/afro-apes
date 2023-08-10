@@ -63,12 +63,12 @@ export default Nav;
 
 const Wrapper = tw.div`
   w-full
-  h-[6rem]
+  h-[6.2rem]
   bg-white
   fixed 
   top-0 
-  left-0 
-  border
+  left-0
+  z-30
 `;
 
 const NavBar = tw.nav`
@@ -80,10 +80,12 @@ const NavBar = tw.nav`
 `;
 
 const MainContainer = tw.div`
-  container
+  w-11/12
+  lg:max-w-[90rem] 
+  mx-auto
   grid 
   grid-cols-2
-  lg:grid-cols-[1fr_1.8fr_1.5fr]
+  lg:grid-cols-[1fr_1.5fr_1.5fr]
 `;
 
 const NavLogoContainer = tw.div``;
