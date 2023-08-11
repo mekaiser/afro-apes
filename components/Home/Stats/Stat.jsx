@@ -24,7 +24,8 @@ const Container = tw.div`
 `;
 
 const NumContainer = tw.div`
-  text-[2.625rem]
+  text-3xl
+  md:text-[2.625rem]
   font-bold
 `;
 
@@ -33,6 +34,8 @@ const Num = tw.div`
 `;
 
 const Title = tw.div`
-  text-xl
+  sm:text-lg
+  md:text-xl
   font-bold
+  text-center
 `;

@@ -60,25 +60,38 @@ export default Hero;
 // Tailwind Styled Components
 
 const Wrapper = tw.section`
-  pt-36
+  pt-28
+  md:pt-36
 `;
 
 const Container = tw.div`
   w-11/12
   lg:max-w-[110rem] 
   mx-auto
-  rounded-[2.5rem]
+  rounded-2xl
+  md:rounded-[2.5rem]
   overflow-hidden
   relative
 `;
 
 const InnerContainer = tw.div`
-  py-28
-  pl-[16%]
-  pr-[4%]
-  bg-hero_bg
+  py-16
+  sm:py-20
+  lg:py-28
+  px-[6%]
+  sm:px-[8%]
+  lg:pl-[10%]
+  xl:pl-[6%]
+  2xl:pl-[16%]
+  lg:pr-[4%]
+  xl:pr-[3%]
+  2xl:pr-[4%]
+  bg-hero_bg_2
+  lg:bg-hero_bg
   grid
-  grid-cols-2
+  grid-cols-1
+  grid-rows-1
+  lg:grid-cols-[1.5fr_1fr]
   relative
   z-20
 `;
@@ -97,9 +110,12 @@ const LStartingTitle = tw.span`
 const LTitle = tw.h1`
   mt-4
   font-bold
-  text-white
-  text-5xl
-  leading-snug
+  !text-white
+  text-4xl
+  sm:hero_resp_title
+  lg:text-4xl
+  xl:text-5xl
+  !leading-snug
 `;
 
 const LTFirstLine = tw.span`
@@ -127,7 +143,8 @@ const LSubtitle = tw.p`
 const BtnsContainer = tw.div`
   mt-10
   flex
-  gap-x-7
+  gap-x-5
+  sm:gap-x-7
 `;
 
 const JoinComContainer = tw.div`
@@ -142,33 +159,45 @@ const JoinComTitle = tw.div`
 const SocialsContainer = tw.div`
   mt-3.5
   flex
-  gap-x-5
+  gap-x-4
+  sm:gap-x-5
 `;
 
 const SocialIcon = tw.img`
-  w-[2rem]
-  h-[2rem]
+  w-7
+  sm:w-[2rem]
+  aspect-square
 `;
 
 const WorldImg = tw.div`
-  h-full
+  max-lg:w-full
+  lg:h-full
   aspect-square
   bg-[url("/assets/imgs/hero-earth.png")]
   bg-no-repeat
-  bg-contain
+  bg-cover
   bg-center
   absolute
-  top-0
-  right-0
-  rounded-xl
-  overflow-hidden
+  bottom-0
+  lg:top-0
+  right-1/2
+  lg:right-0
+  translate-x-1/2
+  lg:translate-x-24
+  xl:translate-x-16
+  2xl:translate-x-6
+  translate-y-12
+  lg:translate-y-0
+  max-lg:scale-125
   z-10
 `;
 
 const RightContainer = tw.div`
+  max-lg:mt-24
   w-full
-  max-w-[29rem]
-  aspect-[4/3]
+  lg:max-w-[20rem]
+  xl:max-w-[29rem]
+  aspect-[4/2.36]
   bg-[url('/assets/imgs/hero-right-rectangle.svg')]
   bg-contain
   bg-no-repeat
@@ -181,20 +210,28 @@ const RightContainer = tw.div`
 const TextContainer = tw.div``;
 
 const RStartingTitle = tw.div`
-  mt-20
+  mt-10
+  sm:mt-12
+  lg:mt-8
+  xl:mt-12
   text-white
   text-center
-  text-lg
+  text-base
+  sm:text-lg
+  lg:text-base
+  xl:text-lg
   font-gesrics  
 `;
 
 const RTitle = tw.div`
   mt-3
-  text-white
   text-center
-  text-[2.5rem]
+  text-3xl
+  sm:hero_resp_title
+  lg:text-3xl
+  xl:text-[2.5rem]
   font-gesrics
-  leading-snug
+  !leading-tight
   bg-hero_right_title
   bg-clip-text 
   text-transparent
@@ -203,25 +240,41 @@ const RTitle = tw.div`
 
 const Planet = tw.img`
   absolute
-  w-28
+  w-20
+  sm:w-24
+  md:w-28
   h-auto
-  bottom-[24%]
-  left-[46%]
+  top-[58%]
+  sm:top-[35%]
+  lg:top-[64%]
+  left-[65%]
+  sm:left-[75%]
+  lg:left-[46%]
 `;
 const Star1 = tw.img`
   absolute
-  w-6
+  w-5
+  md:w-6
   h-auto
-  top-[30%]
-  left-[8%]
+  top-[3%]
+  sm:top-[5%]
+  2xl:top-[30%]
+  left-[60%]
+  sm:left-[40%]
+  lg:left-[25%]
+  2xl:left-[8%]
 `;
 
 const Star2 = tw.img`
   absolute
-  w-5
+  w-4
+  sm:w-5
   h-auto
-  top-[12%]
-  left-[54%]
+  top-[8%]
+  sm:top-[12%]
+  left-[80%]
+  sm:left-[70%]
+  lg:left-[54%]
 `;
 
 const Star3 = tw.img`
@@ -244,8 +297,10 @@ const Star5 = tw.img`
   absolute
   w-3
   h-auto
-  bottom-[58%]
-  left-[67%]
+  bottom-[44%]
+  sm:bottom-[58%]
+  right-4
+  sm:left-[67%]
 `;
 
 const StarGroup = tw.img`

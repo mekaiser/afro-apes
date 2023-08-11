@@ -1,5 +1,3 @@
-"use client";
-
 import galleries from "@/data/galleries";
 import { useState } from "react";
 import tw from "tailwind-styled-components";
@@ -43,6 +41,7 @@ const Gallery = () => {
         </TitleContainer>
 
         <BtnsContainer>
+          <BtnsMainContainer>
           {galleryBtns.map((btn) => (
             <GalBtn
               key={btn.id}
@@ -53,6 +52,7 @@ const Gallery = () => {
               {btn.name}
             </GalBtn>
           ))}
+          </BtnsMainContainer>
         </BtnsContainer>
 
         <GalleryContainer>
@@ -75,7 +75,10 @@ export default Gallery;
 // Tailwind Styled Components
 
 const Wrapper = tw.section`
-  pt-52
+  pt-24
+  sm:pt-24
+  md:pt-32
+  lg:pt-48
   pb-48
 `;
 
@@ -92,23 +95,52 @@ const TitleContainer = tw.div`
 
 const Title = tw.h2`
   max-w-3xl
-  text-6xl
+  text-4xl
+  md:text-5xl
+  lg:text-6xl
   font-bold
   text-center
 `;
 
-const BtnsContainer = tw.div`
-  mt-24
+const BtnsContainer = tw.div`  
+  mt-8
+  sm:mt-12
+  lg:mt-14
+  xl:mt-24
   flex
   justify-center
-  gap-x-7
 `;
 
+const BtnsMainContainer = tw.div`
+  max-sm:px-3
+  max-lg:px-6
+  max-lg:pt-8
+  max-lg:pb-5
+  max-xl:px-6
+  max-xl:pt-8
+  max-xl:pb-8
+  flex
+  gap-x-3
+  sm:gap-x-4
+  lg:gap-x-6
+  max-xl:overflow-x-scroll
+  scrollbar 
+  scrollbar-thumb-[#4e55ff]
+  scrollbar-track-transparent
+  scrollbar-h-[0.3rem]
+  scrollbar-rounded-[1px]
+`
+
 const GalBtn = tw.div`
-  px-7
-  py-2
-  text-lg
+  px-5
+  xl:px-7
+  py-1.5
+  xl:py-2
+  text-sm
+  sm:text-base
+  lg:text-lg
   font-medium
+  whitespace-nowrap
   rounded-full
   shadow-gray
   text-[#505050]
@@ -122,7 +154,11 @@ const GalBtn = tw.div`
 `;
 
 const GalleryContainer = tw.div`
-  mt-44
+  mt-16
+  sm:mt-24
+  md:mt-20
+  lg:mt-24
+  xl:mt-44
   h-[30rem]
   lg:h-[35rem]
   grid

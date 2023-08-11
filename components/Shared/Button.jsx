@@ -13,8 +13,11 @@ export default Button;
 // Tailwind Styled Components
 
 const Container = tw.div`
-  px-7
-  py-3
+  px-3.5
+  sm:px-5
+  xl:px-7
+  py-2.5
+  xl:py-3
   flex
   justify-center
   items-center
@@ -25,11 +28,14 @@ const Container = tw.div`
   ${(p) =>
     p.$name === "Free Dashboard Tour" &&
     "bg-white border-[1px] border-[#363636]"}
-  ${(p) => p.$name === "Get Funded" && "bg-[#635BFF] shadow-purple px-8"}
-  ${(p) => p.$name === "Join Our Discord" && "border-[1px] border-white px-8"}
+  ${(p) => p.$name === "Get Funded" && "bg-[#635BFF] shadow-purple"}
+  ${(p) => p.$name === "Join Our Discord" && "border-[1px] border-white"}
+  cursor-pointer
 `;
 
 const Text = tw.div`
+  text-sm
+  sm:text-base
   font-bold
   ${(p) => p.$name === "Clients Area" && "text-white"}
   ${(p) => p.$name === "Get Funded" && "text-white"}
