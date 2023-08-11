@@ -244,7 +244,7 @@ const Planet = tw.img`
   sm:w-24
   md:w-28
   h-auto
-  top-[58%]
+  top-[62%]
   sm:top-[35%]
   lg:top-[64%]
   left-[65%]
@@ -281,7 +281,8 @@ const Star3 = tw.img`
   absolute
   w-3
   h-auto
-  bottom-[12%]
+  bottom-[6%]
+  lg:bottom-[12%]
   left-[34%]
 `;
 
