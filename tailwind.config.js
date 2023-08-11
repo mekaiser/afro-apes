@@ -18,7 +18,9 @@ module.exports = {
           "linear-gradient(180deg, #B2AEFF  0%, #FFF3FAEB 100%)",
       },
       boxShadow: {
+        pink: "0px 10px 25px 0px #EF3DFF66",
         purple: "0px 10px 25px 0px #635BFF66",
+        green: "0px 10px 25px 0px #6AFFF666",
         gray: "0px 4px 39px 0px #0000001C",
         white_purple: "0px 3.14px 27px 0px #FFFFFFB8",
       },
@@ -45,6 +47,13 @@ module.exports = {
         blink_3: "blink_1 1s linear infinite",
         blink_4: "blink_1 2.5s linear infinite",
         float_y: "float_y 3s alternate infinite",
+      },
+      backgroundSize: {
+        size_200: "200% 200%",
+      },
+      backgroundPosition: {
+        pos_0: "0% 0%",
+        pos_100: "100% 100%",
       },
     },
   },
