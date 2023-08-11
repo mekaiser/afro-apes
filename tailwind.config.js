@@ -7,7 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {},
       backgroundImage: {
         hero_bg:
           "linear-gradient(90deg, #171627  0%, #0B0D43 65%, #0300339E 100%)",
@@ -27,6 +26,25 @@ module.exports = {
         sans: ["Poppins", "sans-serif"],
         gesrics: ["var(--font-gesrics-font)"],
         jost: ["Jost", "sans-serif"],
+      },
+      keyframes: {
+        blink_1: {
+          "0%": { opacity: 1 },
+          "50%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        float_y: {
+          "0%": { transform: "translateY(-20px)" },
+          "50%": { transform: "translateY(-2px)" },
+          "100%": { transform: "translateY(-20px)" },
+        },
+      },
+      animation: {
+        blink_1: "blink_1 2s linear infinite",
+        blink_2: "blink_1 1.5s linear infinite",
+        blink_3: "blink_1 1s linear infinite",
+        blink_4: "blink_1 2.5s linear infinite",
+        float_y: "float_y 3s alternate infinite",
       },
     },
   },

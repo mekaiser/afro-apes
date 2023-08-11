@@ -249,6 +249,7 @@ const Planet = tw.img`
   left-[65%]
   sm:left-[75%]
   lg:left-[46%]
+  animate-float_y
 `;
 const Star1 = tw.img`
   absolute
@@ -262,6 +263,7 @@ const Star1 = tw.img`
   sm:left-[40%]
   lg:left-[25%]
   2xl:left-[8%]
+  animate-blink_1
 `;
 
 const Star2 = tw.img`
@@ -274,6 +276,7 @@ const Star2 = tw.img`
   left-[80%]
   sm:left-[70%]
   lg:left-[54%]
+  animate-blink_2
 `;
 
 const Star3 = tw.img`
@@ -283,6 +286,7 @@ const Star3 = tw.img`
   bottom-[6%]
   lg:bottom-[12%]
   left-[34%]
+  animate-blink_3
 `;
 
 const Star4 = tw.img`
@@ -291,6 +295,7 @@ const Star4 = tw.img`
   h-auto
   bottom-[28%]
   left-[61%]
+  animate-blink_4
 `;
 
 const Star5 = tw.img`
@@ -301,6 +306,7 @@ const Star5 = tw.img`
   sm:bottom-[58%]
   right-4
   sm:left-[67%]
+  animate-blink_3
 `;
 
 const StarGroup = tw.img`

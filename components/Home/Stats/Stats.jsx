@@ -1,11 +1,89 @@
+import stats from "@/data/stats";
+import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
+import { Elastic, gsap } from "gsap";
+import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import Globe from "./Globe";
 import Stat from "./Stat";
 
 const Stats = ({ globeLoadHandler }) => {
+  const [isDOMLoaded, setDOMLoaded] = useState(false);
+  const [startCount, setStartCount] = useState(false);
+
+  const rootRef = useRef();
+  const contentsRef = useRef();
+
+  const globeContainerRef = useRef();
+  const statsContainerRef = useRef();
+  const statsRef = useRef([]);
+
+  useIsomorphicLayoutEffect(() => {
+    let mm = gsap.matchMedia(),
+      breakPoint = 640;
+
+    mm.add(
+      {
+        isDesktop: `(min-width: ${breakPoint}px)`,
+        isMobile: `(max-width: ${breakPoint - 1}px)`,
+      },
+      (context) => {
+        if (isDOMLoaded) {
+          let { isDesktop, isMobile } = context.conditions;
+
+          const tl = gsap.timeline({ defaults: { ease: "none" } });
+          const tlGlobe = gsap.timeline({
+            scrollTrigger: {
+              trigger: contentsRef.current,
+              start: "top center",
+              end: "top center",
+            },
+          });
+          const tlStats = gsap.timeline({
+            scrollTrigger: {
+              trigger: globeContainerRef.current,
+              start: () => (isMobile ? "top bottom-=280" : "top bottom-=350"),
+              end: () => (isMobile ? "top bottom-=280" : "top bottom-=350"),
+              onEnter: () => {
+                setStartCount(true);
+              },
+            },
+          });
+
+          const statsGsapArr = gsap.utils.toArray([...statsRef.current]);
+
+          tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+          tlGlobe.from(globeContainerRef.current, {
+            opacity: 0,
+            scale: 0.5,
+            ease: Elastic.easeOut.config(1, 0.5),
+            duration: 1.5,
+          });
+          tlStats.from(statsGsapArr, {
+            opacity: 0,
+            y: 60,
+            ease: Elastic.easeOut.config(1, 0.5),
+            stagger: 0.12,
+            duration: 1.5,
+          });
+        }
+
+        return () => {
+          // optionally return a cleanup function that will be called when the media query no longer matches
+        };
+      },
+      rootRef
+    );
+
+    return () => mm.revert();
+  }, [isDOMLoaded]);
+
+  useEffect(() => {
+    setDOMLoaded(true);
+  }, []);
+
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper ref={rootRef}>
+      <Container ref={contentsRef}>
         <TitleAndSubContainer>
           <Title>
             <TitleWords>Next Ventures</TitleWords> so far....
@@ -16,16 +94,23 @@ const Stats = ({ globeLoadHandler }) => {
           </Subtitle>
         </TitleAndSubContainer>
         <GlobeContainer>
-          <GlobeMainContainer>
+          <GlobeMainContainer ref={globeContainerRef}>
             <Globe globeLoadHandler={globeLoadHandler} />
           </GlobeMainContainer>
         </GlobeContainer>
         <StatsContainer>
-          <StatsMainContainer>
-            <Stat title="Team Member" num={100} suffix="+" />
-            <Stat title="Active Clients" num={20} suffix="k+" />
-            <Stat title="Countries" num={100} suffix="+" />
-            <Stat title="Offices" num={5} suffix="+" />
+          <StatsMainContainer ref={statsContainerRef}>
+            {stats.map((stat, i) => (
+              <Stat
+                key={stat.title}
+                title={stat.title}
+                num={stat.num}
+                suffix={stat.suffix}
+                startCount={startCount}
+                index={i}
+                ref={statsRef}
+              />
+            ))}
           </StatsMainContainer>
         </StatsContainer>
       </Container>
@@ -98,6 +183,7 @@ const StatsContainer = tw.div`
 `;
 
 const StatsMainContainer = tw.div`
+  max-md:py-8
   py-12
   w-11/12
   lg:max-w-[55rem] 

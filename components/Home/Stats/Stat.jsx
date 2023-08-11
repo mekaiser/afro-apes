@@ -1,17 +1,32 @@
-import React from "react";
+import { forwardRef, useEffect, useRef } from "react";
+import { useCountUp } from "react-countup";
 import tw from "tailwind-styled-components";
 
-const Stat = ({ title, num, suffix }) => {
+const Stat = forwardRef(({ title, num, suffix, startCount, index }, ref) => {
+  const countUpRef = useRef(null);
+  const { countUp, start, update } = useCountUp({
+    ref: countUpRef,
+    start: 0,
+    // end: num,
+    duration: 4,
+  });
+
+  useEffect(() => {
+    if(startCount) {
+      start();
+      update(num)
+    }
+  }, [startCount])
   return (
-    <Container>
+    <Container ref={el => ref.current[index] = el}>
       <NumContainer>
-        <Num>{num}</Num>
+        <Num ref={countUpRef}>{countUp}</Num>
         {suffix}
       </NumContainer>
       <Title>{title}</Title>
     </Container>
   );
-};
+});
 
 export default Stat;
 

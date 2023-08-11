@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
-const Loader = forwardRef(({ gsapTlRef }) => {
+const Loader = forwardRef(({}, ref) => {
   const [isDOMLoaded, setDOMLoaded] = useState(false);
 
   const rootRef = useRef();
@@ -11,8 +11,8 @@ const Loader = forwardRef(({ gsapTlRef }) => {
   useIsomorphicLayoutEffect(() => {
     let gsapCtx = gsap.context(() => {
       if (isDOMLoaded) {
-        gsapTlRef.current = gsap.timeline({ paused: true });
-        gsapTlRef.current.to(rootRef.current, { opacity: 0, duration: 1 });
+        ref.current = gsap.timeline({ paused: true });
+        ref.current.to(rootRef.current, { opacity: 0, duration: 1 });
       }
     }, rootRef);
 
