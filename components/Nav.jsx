@@ -106,7 +106,7 @@ export default Nav;
 
 const Wrapper = tw.div`
   w-full
-  h-[4.5rem]
+  h-[5rem]
   md:h-[5.5rem]
   xl:h-[6.2rem]
   bg-white
