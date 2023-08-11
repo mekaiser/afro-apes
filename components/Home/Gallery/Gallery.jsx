@@ -97,9 +97,9 @@ const Gallery = () => {
           tlImgsRef.current.from(imgsGsapArr, {
             opacity: 0,
             scale: 0.9,
-            ease: Elastic.easeOut.config(0.8, 0.35),
+            // ease: Elastic.easeInOut.config(0.8, 0.35),
             stagger: 0.1,
-            duration: 2,
+            duration: 0.3,
           });
         }
       },
