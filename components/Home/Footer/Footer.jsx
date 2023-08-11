@@ -1,6 +1,6 @@
 import Link from "next/link";
-import React from "react";
 import tw from "tailwind-styled-components";
+import Subscribe from "./Subscribe";
 
 const marketplace = [
   {
@@ -91,25 +91,15 @@ const Footer = () => {
               collectibles and non-fungible tokens (NFTs). Buy, sell, and
               discover exclusive digital items.
             </Subtitle>
-            <SubscribeContainer>
-              <SubscribeUsTitle>Subscribe Us</SubscribeUsTitle>
-              <EmailInputContainer>
-                <EmailInput
-                  placeholder="Enter your email"
-                  type="text"
-                  name="email"
-                />
-                <SubmitBtn>
-                  <SendIcon src="assets/icons/send.svg" />
-                </SubmitBtn>
-              </EmailInputContainer>
-            </SubscribeContainer>
+            <SubscribeContainerTop>
+              <Subscribe />
+            </SubscribeContainerTop>
           </LogoAndNewsLContainer>
           <MarketPlaceContainer>
             <NavItemsTitle>Marketplace</NavItemsTitle>
             <NavItemsContainer>
               {marketplace.map((item) => (
-                <Link key={item.name} href={item.link}>
+                <Link className={link} key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
@@ -119,7 +109,7 @@ const Footer = () => {
             <NavItemsTitle>My Account</NavItemsTitle>
             <NavItemsContainer>
               {myAccount.map((item) => (
-                <Link key={item.name} href={item.link}>
+                <Link className={link} key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
@@ -129,12 +119,16 @@ const Footer = () => {
             <NavItemsTitle>Resources</NavItemsTitle>
             <NavItemsContainer>
               {resources.map((item) => (
-                <Link key={item.name} href={item.link}>
+                <Link className={link} key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
             </NavItemsContainer>
           </ResourceContainer>
+
+          <SubscribeContainerBottom>
+            <Subscribe />
+          </SubscribeContainerBottom>
         </MainContainer>
         <BottomContainer>
           <BottomMainContainer>
@@ -173,22 +167,32 @@ const MainContainer = tw.div`
   w-11/12
   lg:max-w-[100rem] 
   mx-auto
-  py-24
+  pt-24
+  pb-16
+  md:pb-24
   grid
-  grid-cols-[2.3fr_1fr_1fr_1fr]
+  grid-cols-1
+  sm:grid-cols-2
+  lg:grid-cols-[2.8fr_1fr_1fr_1fr]
+  gap-14
+  lg:gap-12
 `;
 
 const LogoAndNewsLContainer = tw.div``;
 
 const Logo = tw.img`
-  w-[14.776rem]
+  w-[10rem]
+  lg:w-[12rem]
+  xl:w-[14.776rem]
   h-auto
 `;
 
 const Subtitle = tw.div`
-  mt-12
+  mt-10
+  md:mt-12
   max-w-[28rem]
-  text-[1.25rem]
+  text-lg
+  md:text-[1.25rem]
   text-[#BEBEBE]
 `;
 
@@ -199,73 +203,38 @@ const MyAccountContainer = tw.div``;
 const ResourceContainer = tw.div``;
 
 const NavItemsTitle = tw.div`
-  text-[1.667rem]
+  text-xl
+  md:text-2xl
+  xl:text-[1.667rem]
   text-white
   font-bold
 `;
 
 const NavItemsContainer = tw.ul`
-  mt-12
+  mt-6
+  lg:mt-8
+  xl:mt-12
   flex
   flex-col
-  gap-y-4
+  gap-y-3
+  lg:gap-y-4
 `;
 
 const NavItem = tw.li`
-  text-[1.25rem]
+  w-fit
+  md:text-lg
+  xl:text-[1.25rem]
   text-[#D0D0D0]
 `;
 
-const SubscribeContainer = tw.div``;
-
-const SubscribeUsTitle = tw.div`
+const SubscribeContainerTop = tw.div`
   mt-12
-  text-2xl
-  font-medium
-  text-white
+  hidden
+  lg:block
 `;
 
-const EmailInputContainer = tw.div`
-  w-[20rem]
-  mt-4
-  flex
-  items-center
-  relative
-  rounded-lg
-  overflow-hidden
-`;
-
-const EmailInput = tw.input`
-  w-[17rem]
-  px-5
-  py-2.5
-  text-base
-  border-none
-  outline-none
-  bg-red-white
-  placeholder:text-[#9F9F9F]
-`;
-
-const SubmitBtn = tw.div`
-  h-full
-  px-3.5
-  bg-[#1D1D1D]
-  hover:bg-[#4E55FF]
-  absolute
-  top-0
-  right-0
-  flex
-  justify-center
-  items-center
-  transition-all
-  ease-in-out
-  duration-300
-  cursor-pointer
-`;
-
-const SendIcon = tw.img`
-  w-[1.48rem]
-  h-auto
+const SubscribeContainerBottom = tw.div`
+  lg:hidden
 `;
 
 const BottomContainer = tw.div`
@@ -278,7 +247,11 @@ const BottomMainContainer = tw.div`
   w-11/12
   lg:max-w-[100rem] 
   mx-auto
+  max-md:text-sm
   flex
+  max-md:flex-col
+  max-md:items-center
+  max-md:gap-1.5
   justify-between
   text-white
 `;
@@ -294,3 +267,7 @@ const PPAndTOSContainer = tw.div`
 const PP = tw.div``;
 
 const TOS = tw.div``;
+
+// Tailwind Classes
+
+const link = 'w-fit'

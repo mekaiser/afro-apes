@@ -75,11 +75,9 @@ export default Gallery;
 // Tailwind Styled Components
 
 const Wrapper = tw.section`
-  pt-24
-  sm:pt-24
-  md:pt-32
-  lg:pt-48
-  pb-48
+  py-24
+  md:py-32
+  lg:py-48
 `;
 
 const Container = tw.div`

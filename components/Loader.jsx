@@ -49,8 +49,10 @@ const Wrapper = tw.div`
 const Container = tw.div`
   relative 
   flex 
-  h-12 
-  w-12
+  h-8 
+  md:h-12 
+  w-8
+  md:w-12
 `;
 
 const AnimateCircle = tw.div`
@@ -68,7 +70,9 @@ const StillCircle = tw.div`
   relative 
   inline-flex 
   rounded-full 
-  h-12 
-  w-12 
+  h-8 
+  md:h-12 
+  w-8
+  md:w-12
   bg-[#4e55ff]
 `;

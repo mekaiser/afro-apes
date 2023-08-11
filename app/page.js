@@ -1,5 +1,6 @@
 "use client";
 
+import Footer from "@/components/Home/Footer/Footer";
 import Gallery from "@/components/Home/Gallery/Gallery";
 import Hero from "@/components/Home/Hero/Hero";
 import Stats from "@/components/Home/Stats/Stats";
@@ -27,7 +28,7 @@ export default function Home() {
       <Hero />
       <Stats globeLoadHandler={globeLoadHandler} />
       <Gallery/>
-      {/* <Footer/> */}
+      <Footer/>
     </>
   );
 }
