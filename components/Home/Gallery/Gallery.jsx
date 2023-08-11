@@ -100,8 +100,8 @@ const Gallery = () => {
           const imgsGsapArr = gsap.utils.toArray([...imgsRef.current]);
           tlImgsRef.current.from(imgsGsapArr, {
             opacity: 0,
-            scale: 0.8,
-            ease: Elastic.easeOut.config(1, 0.5),
+            scale: 0.9,
+            ease: Elastic.easeOut.config(0.8, 0.35),
             stagger: 0.1,
             duration: 2,
           });
