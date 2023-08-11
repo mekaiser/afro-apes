@@ -1,5 +1,7 @@
 import galleries from "@/data/galleries";
-import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
+import { Elastic, gsap } from "gsap";
+import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
 const galleryBtns = [
@@ -26,42 +28,134 @@ const galleryBtns = [
 ];
 
 const Gallery = () => {
+  const [isDOMLoaded, setDOMLoaded] = useState(false);
   const [selectedGal, setSelectedGal] = useState(galleries[0]);
 
-  const galleryHandler = (_id) => {
-    const foundGal = galleries.find((gal) => gal.id === _id);
+  const rootRef = useRef();
+  const contentsRef = useRef();
 
-    setSelectedGal(foundGal);
+  const galContainer = useRef();
+  const imgsRef = useRef([]);
+
+  const tlImgsRef = useRef();
+  const galleryHandler = (_id) => {
+    tlImgsRef.current.reverse();
+
+    tlImgsRef.current.eventCallback("onReverseComplete", () => {
+      const foundGal = galleries.find((gal) => gal.id === _id);
+      setSelectedGal(foundGal);
+    });
   };
+
+  useIsomorphicLayoutEffect(() => {
+    let mm = gsap.matchMedia(),
+      breakPoint = 640;
+
+    mm.add(
+      {
+        isDesktop: `(min-width: ${breakPoint}px)`,
+        isMobile: `(max-width: ${breakPoint - 1}px)`,
+      },
+      (context) => {
+        if (isDOMLoaded) {
+          let { isDesktop, isMobile } = context.conditions;
+
+          const tl = gsap.timeline({ defaults: { ease: "none" } });
+
+          tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+        }
+
+        return () => {
+          // optionally return a cleanup function that will be called when the media query no longer matches
+        };
+      },
+      rootRef
+    );
+
+    return () => mm.revert();
+  }, [isDOMLoaded]);
+
+  useIsomorphicLayoutEffect(() => {
+    let mm = gsap.matchMedia(),
+      breakPoint = 640;
+
+    mm.add(
+      {
+        isDesktop: `(min-width: ${breakPoint}px)`,
+        isMobile: `(max-width: ${breakPoint - 1}px)`,
+      },
+      (context) => {
+        if (isDOMLoaded) {
+          let { isDesktop, isMobile } = context.conditions;
+          tlImgsRef.current = gsap.timeline({
+            scrollTrigger: {
+              trigger: contentsRef.current,
+              start: "top center",
+              end: "top center",
+            },
+            paused: true,
+            onEnter: () => tlImgsRef.current.play(),
+          });
+
+          const imgsGsapArr = gsap.utils.toArray([...imgsRef.current]);
+          tlImgsRef.current.from(imgsGsapArr, {
+            opacity: 0,
+            scale: 0.8,
+            ease: Elastic.easeOut.config(1, 0.5),
+            stagger: 0.1,
+            duration: 2,
+          });
+        }
+
+        return () => {
+          // optionally return a cleanup function that will be called when the media query no longer matches
+        };
+      },
+      rootRef
+    );
+
+    return () => mm.revert();
+  }, [isDOMLoaded, selectedGal]);
+
+  useEffect(() => {
+    if (isDOMLoaded && selectedGal) {
+      tlImgsRef.current.play();
+    }
+  }, [selectedGal]);
+
+  useEffect(() => {
+    setDOMLoaded(true);
+  }, []);
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper ref={rootRef}>
+      <Container ref={contentsRef}>
         <TitleContainer>
           <Title>Next Venture is a family of brands</Title>
         </TitleContainer>
 
         <BtnsContainer>
           <BtnsMainContainer>
-          {galleryBtns.map((btn) => (
-            <GalBtn
-              key={btn.id}
-              $galId={btn.id}
-              $selectedGalId={selectedGal.id}
-              onClick={() => galleryHandler(btn.id)}
-            >
-              {btn.name}
-            </GalBtn>
-          ))}
+            {galleryBtns.map((btn) => (
+              <GalBtn
+                key={btn.id}
+                $galId={btn.id}
+                $selectedGalId={selectedGal.id}
+                onClick={() => galleryHandler(btn.id)}
+              >
+                {btn.name}
+              </GalBtn>
+            ))}
           </BtnsMainContainer>
         </BtnsContainer>
 
-        <GalleryContainer>
+        <GalleryContainer ref={galContainer}>
           {selectedGal.imgs.map((img, i) => (
             <GalImg
               key={img}
               style={{ backgroundImage: `url(${img})` }}
               $selectedGalLen={selectedGal.imgs.length}
               $index={i}
+              ref={(el) => (imgsRef.current[i] = el)}
             />
           ))}
         </GalleryContainer>
@@ -127,7 +221,7 @@ const BtnsMainContainer = tw.div`
   scrollbar-track-transparent
   scrollbar-h-[0.3rem]
   scrollbar-rounded-[1px]
-`
+`;
 
 const GalBtn = tw.div`
   px-5
@@ -169,19 +263,42 @@ const GalleryContainer = tw.div`
 `;
 
 const GalImg = tw.div`
-  ${(p) => p.$selectedGalLen === 5 && p.$index === 0 && "col-span-2 row-span-2 md:col-span-2 md:row-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 0 && "max-md:row-span-2 md:col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 1 && "max-md:row-span-2 md:col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 2 && "max-md:row-span-2 md:col-span-2"}
-  ${(p) => p.$selectedGalLen === 4 && p.$index === 3 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 5 &&
+    p.$index === 0 &&
+    "col-span-2 row-span-2 md:col-span-2 md:row-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 4 &&
+    p.$index === 0 &&
+    "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 4 &&
+    p.$index === 1 &&
+    "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 4 &&
+    p.$index === 2 &&
+    "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 4 &&
+    p.$index === 3 &&
+    "max-md:row-span-2 md:col-span-2"}
   ${(p) => p.$selectedGalLen === 3 && p.$index === 0 && "col-span-2 row-span-2"}
-  ${(p) => p.$selectedGalLen === 3 && p.$index === 1 && "max-md:row-span-2 md:col-span-2"}
-  ${(p) => p.$selectedGalLen === 3 && p.$index === 2 && "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 3 &&
+    p.$index === 1 &&
+    "max-md:row-span-2 md:col-span-2"}
+  ${(p) =>
+    p.$selectedGalLen === 3 &&
+    p.$index === 2 &&
+    "max-md:row-span-2 md:col-span-2"}
   ${(p) =>
     p.$selectedGalLen === 2 &&
     (p.$index === 0 || p.$index === 1) &&
     "col-span-2 row-span-2"}
-  ${(p) => p.$selectedGalLen === 1 && "max-md:col-span-2 max-md:row-span-4 md:col-span-4 md:row-span-4"}
+  ${(p) =>
+    p.$selectedGalLen === 1 &&
+    "max-md:col-span-2 max-md:row-span-4 md:col-span-4 md:row-span-4"}
   bg-cover
   bg-no-repeat
   bg-center
