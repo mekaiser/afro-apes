@@ -132,8 +132,7 @@ const BtnsMainContainer = tw.div`
 const GalBtn = tw.div`
   px-5
   xl:px-7
-  py-1.5
-  xl:py-2
+  py-2
   text-sm
   sm:text-base
   lg:text-lg
