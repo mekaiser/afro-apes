@@ -64,10 +64,6 @@ const Gallery = () => {
 
           tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
         }
-
-        return () => {
-          // optionally return a cleanup function that will be called when the media query no longer matches
-        };
       },
       rootRef
     );
@@ -106,10 +102,6 @@ const Gallery = () => {
             duration: 2,
           });
         }
-
-        return () => {
-          // optionally return a cleanup function that will be called when the media query no longer matches
-        };
       },
       rootRef
     );

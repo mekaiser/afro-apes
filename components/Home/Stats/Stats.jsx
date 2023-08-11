@@ -66,10 +66,6 @@ const Stats = ({ globeLoadHandler }) => {
             duration: 1.5,
           });
         }
-
-        return () => {
-          // optionally return a cleanup function that will be called when the media query no longer matches
-        };
       },
       rootRef
     );
