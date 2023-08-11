@@ -164,8 +164,7 @@ const SocialsContainer = tw.div`
 `;
 
 const SocialIcon = tw.img`
-  w-7
-  sm:w-[2rem]
+  w-8
   aspect-square
 `;
 
