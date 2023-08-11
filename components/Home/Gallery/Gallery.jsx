@@ -241,7 +241,7 @@ const GalleryContainer = tw.div`
   sm:mt-24
   md:mt-20
   lg:mt-24
-  xl:mt-44
+  xl:mt-36
   h-[30rem]
   lg:h-[35rem]
   grid
