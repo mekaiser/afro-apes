@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         hero_bg:
-          "linear-gradient(90deg, #171627  0%, #0B0D43 65%, #0300339E 100%)",
+          "linear-gradient(90deg, #171627  0%, #0B0D43 68%, #0300339E 100%)",
         hero_bg_2:
           "linear-gradient(180deg, #171627  0%, #0B0D43 70%, #0300339E 100%)",
         hero_left_starting_title:

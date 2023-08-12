@@ -1,17 +1,9 @@
 import Image from "next/image";
 
-const ImageComp = ({ src, width, height, obFitContain, alt }) => {
+const ImageComp = ({ src, width, height, obFitContain, alt, see }) => {
+  console.log("Image", see);
   if (width && height) {
     <Image src={src} width={width} height={height} alt={alt} priority />;
-  } else if (obFitContain) {
-    <Image
-      src={src}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-      style={{ objectFit: "contain" }}
-      alt={alt}
-      priority
-    />;
   } else {
     return (
       <Image

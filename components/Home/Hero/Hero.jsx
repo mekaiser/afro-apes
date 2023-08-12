@@ -97,11 +97,15 @@ const Hero = () => {
             </JoinComContainer>
           </LContainer>
           <RightContainer>
-            <ImageComp
+            <Image
               src="/assets/imgs/hero-right-rectangle.svg"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+              style={{ objectFit: "contain" }}
               alt="world-ring"
-              obFitContain
+              priority
             />
+            ;
             <TextContainer>
               <RStartingTitle>Introducing</RStartingTitle>
               <RTitle>
