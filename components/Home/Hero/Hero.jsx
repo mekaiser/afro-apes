@@ -1,6 +1,9 @@
 import Button from "@/components/Shared/Button";
 import ImageComp from "@/components/Shared/Image";
+import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
+import { Elastic, Power4, gsap } from "gsap";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
 const socials = [
@@ -22,9 +25,156 @@ const socials = [
 ];
 
 const Hero = () => {
+  const [isDOMLoaded, setDOMLoaded] = useState(false);
+
+  const rootRef = useRef();
+  const contentsRef = useRef();
+
+  const startingTMainRef = useRef();
+  const titleMainFLineRef = useRef();
+  const titleMainSLineRef = useRef();
+  const subtitleRef = useRef();
+  const btnsRef = useRef();
+  const joinComTextRef = useRef();
+  const socialsRef = useRef();
+
+  const stellarContainerRef = useRef();
+  const startingTStellarRef = useRef();
+  const titleStellarRef = useRef();
+
+  useIsomorphicLayoutEffect(() => {
+    let mm = gsap.matchMedia(),
+      breakPoint = 640;
+
+    mm.add(
+      {
+        isDesktop: `(min-width: ${breakPoint}px)`,
+        isMobile: `(max-width: ${breakPoint - 1}px)`,
+      },
+      (context) => {
+        if (isDOMLoaded) {
+          let { isDesktop, isMobile } = context.conditions;
+
+          const tl = gsap.timeline({ defaults: { ease: "none" } });
+          const tlLeftItems = gsap.timeline();
+
+          const tlStellarItems = gsap.timeline({
+            scrollTrigger: {
+              trigger: stellarContainerRef.current,
+              start: () => (isMobile ? "top center" : "top bottom"),
+              end: () => (isMobile ? "top center" : "top bottom"),
+              markers: true,
+            },
+          });
+
+          const btnsGsapArr = gsap.utils.toArray([
+            ...btnsRef.current.childNodes,
+          ]);
+
+          const socialsGsapArr = gsap.utils.toArray([
+            ...socialsRef.current.childNodes,
+          ]);
+
+          tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+          tlLeftItems
+            .from(startingTMainRef.current, {
+              opacity: 0,
+              x: 100,
+              duration: 1.2,
+              delay: 0.5,
+              ease: Power4.easeOut,
+            })
+            .from(
+              titleMainFLineRef.current,
+              {
+                opacity: 0,
+                y: 100,
+                duration: 1.4,
+                ease: Power4.easeOut,
+              },
+              "<20%"
+            )
+            .from(
+              titleMainSLineRef.current,
+              { opacity: 0, y: 100, duration: 1.4, ease: Power4.easeOut },
+              "<"
+            )
+            .from(
+              subtitleRef.current,
+              {
+                opacity: 0,
+                x: 100,
+                duration: 1.2,
+                ease: Power4.easeOut,
+              },
+              "<20%"
+            )
+            .from(
+              btnsGsapArr,
+              {
+                opacity: 0,
+                scale: 0.2,
+                duration: 1.2,
+                stagger: 0.1,
+                ease: Elastic.easeOut.config(1, 0.75),
+              },
+              "<20%"
+            )
+            .from(
+              joinComTextRef.current,
+              {
+                opacity: 0,
+                x: 80,
+                duration: 1.2,
+                ease: Power4.easeOut,
+              },
+              "<20%"
+            )
+            .from(
+              socialsGsapArr,
+              {
+                opacity: 0,
+                y: 20,
+                duration: 1.2,
+                stagger: 0.1,
+                ease: Elastic.easeOut.config(1, 0.75),
+              },
+              "<10%"
+            );
+
+          tlStellarItems
+            .from(startingTStellarRef.current, {
+              opacity: 0,
+              y: 20,
+              duration: 1.4,
+              delay: isMobile ? 0 : 1,
+              ease: Power4.easeOut,
+            })
+            .from(
+              titleStellarRef.current,
+              {
+                opacity: 0,
+                scale: 1.4,
+                duration: 1.6,
+                ease: Elastic.easeOut.config(1, 0.75),
+              },
+              "<20%"
+            );
+        }
+      },
+      rootRef
+    );
+
+    return () => mm.revert();
+  }, [isDOMLoaded]);
+
+  useEffect(() => {
+    setDOMLoaded(true);
+  }, []);
+
   return (
-    <Wrapper>
-      <Container>
+    <Wrapper ref={rootRef}>
+      <Container ref={contentsRef}>
         <WorldImg>
           <ImageComp src="/assets/imgs/hero-earth.png" alt="world-img" />
         </WorldImg>
@@ -60,43 +210,59 @@ const Hero = () => {
             />
           </StarGroup>
 
-          <LContainer>
-            <LStartingTitle>Our Fund, Your Profit</LStartingTitle>
-            <LTitle>
-              <LTFirstLine>Funding Promising</LTFirstLine>
-              <LTSecondLine>
-                <LTGradWrd>Forex Traders</LTGradWrd> Worldwide
-              </LTSecondLine>
-            </LTitle>
-            <LSubtitle>
+          <MainContainer>
+            <MainStartingTitle ref={startingTMainRef}>
+              Our Fund, Your Profit
+            </MainStartingTitle>
+            <MainTitle>
+              <MainTLineContainer>
+                <MainTFirstLine ref={titleMainFLineRef}>
+                  Funding Promising
+                </MainTFirstLine>
+              </MainTLineContainer>
+
+              <MainTLineContainer>
+                <MainTSecondLine ref={titleMainSLineRef}>
+                  <LTGradWrd>Forex Traders</LTGradWrd> Worldwide
+                </MainTSecondLine>
+              </MainTLineContainer>
+            </MainTitle>
+            <MainSubtitle ref={subtitleRef}>
               FundedNext offers up to $200,000 funds to financially empower
               global traders and help them earn full-time.
-            </LSubtitle>
-            <BtnsContainer>
-              <Button name="Get Funded" />
-              <Button name="Join Our Discord" />
+            </MainSubtitle>
+            <BtnsContainer ref={btnsRef}>
+              <ButtonContainer>
+                <Button name="Get Funded" />
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button name="Join Our Discord" />
+              </ButtonContainer>
             </BtnsContainer>
 
             <JoinComContainer>
-              <JoinComTitle>Join Our Community</JoinComTitle>
-              <SocialsContainer>
+              <JoinComTitle ref={joinComTextRef}>
+                Join Our Community
+              </JoinComTitle>
+              <SocialsContainer ref={socialsRef}>
                 {socials.map((social) => (
-                  <SocialIcon key={social.name}>
-                    <ImageComp
-                      src={social.icon}
-                      width={32}
-                      height={32}
-                      alt={social.name}
-                    />
-                  </SocialIcon>
+                  <ExternalLink
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                  >
+                    <SocialIcon>
+                      <ImageComp src={social.icon} alt={social.name} />
+                    </SocialIcon>
+                  </ExternalLink>
                 ))}
 
                 <SocialIcon src="" alt="" />
                 <SocialIcon src="" alt="" />
               </SocialsContainer>
             </JoinComContainer>
-          </LContainer>
-          <RightContainer>
+          </MainContainer>
+          <StellarContainer ref={stellarContainerRef}>
             <Image
               src="/assets/imgs/hero-right-rectangle.svg"
               fill
@@ -107,12 +273,14 @@ const Hero = () => {
             />
             ;
             <TextContainer>
-              <RStartingTitle>Introducing</RStartingTitle>
-              <RTitle>
+              <StellarStartingTitle ref={startingTStellarRef}>
+                Introducing
+              </StellarStartingTitle>
+              <StellarTitle ref={titleStellarRef}>
                 Stellar <br /> Challenge
-              </RTitle>
+              </StellarTitle>
             </TextContainer>
-          </RightContainer>
+          </StellarContainer>
         </InnerContainer>
       </Container>
     </Wrapper>
@@ -158,18 +326,18 @@ const InnerContainer = tw.div`
   z-20
 `;
 
-const LContainer = tw.div`
+const MainContainer = tw.div`
   z-10
 `;
 
-const LStartingTitle = tw.span`
+const MainStartingTitle = tw.div`
   font-semibold
   bg-hero_left_starting_title
   bg-clip-text
   text-transparent
 `;
 
-const LTitle = tw.h1`
+const MainTitle = tw.h1`
   mt-4
   font-bold
   !text-white
@@ -180,11 +348,16 @@ const LTitle = tw.h1`
   !leading-snug
 `;
 
-const LTFirstLine = tw.span`
+const MainTLineContainer = tw.span`
+  overflow-hidden
   block
 `;
 
-const LTSecondLine = tw.span`
+const MainTFirstLine = tw.span`
+  block
+`;
+
+const MainTSecondLine = tw.span`
   block
 `;
 
@@ -196,7 +369,7 @@ const LTGradWrd = tw.span`
   to-[#EF3DFF]
 `;
 
-const LSubtitle = tw.p`
+const MainSubtitle = tw.p`
   mt-3
   max-w-[32rem]
   text-[#D8D8D8]
@@ -208,6 +381,8 @@ const BtnsContainer = tw.div`
   gap-x-5
   sm:gap-x-7
 `;
+
+const ButtonContainer = tw.div``;
 
 const JoinComContainer = tw.div`
   mt-8
@@ -225,7 +400,13 @@ const SocialsContainer = tw.div`
   sm:gap-x-5
 `;
 
+const ExternalLink = tw.a`
+  inline-block
+`;
+
 const SocialIcon = tw.div`
+  w-8
+  aspect-square
   relative
 `;
 
@@ -248,7 +429,7 @@ const WorldImg = tw.div`
   z-10
 `;
 
-const RightContainer = tw.div`
+const StellarContainer = tw.div`
   max-lg:mt-24
   w-full
   lg:max-w-[20rem]
@@ -265,7 +446,7 @@ const TextContainer = tw.div`
   z-10
 `;
 
-const RStartingTitle = tw.div`
+const StellarStartingTitle = tw.div`
   mt-10
   sm:mt-12
   lg:mt-8
@@ -279,7 +460,7 @@ const RStartingTitle = tw.div`
   font-gesrics  
 `;
 
-const RTitle = tw.div`
+const StellarTitle = tw.div`
   mt-3
   text-center
   text-3xl

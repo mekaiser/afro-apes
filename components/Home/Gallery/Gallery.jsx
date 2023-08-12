@@ -70,7 +70,6 @@ const Gallery = () => {
               trigger: titleRef.current,
               start: isMobile ? "top center+=200" : "top center+=300",
               end: isMobile ? "top center+=200" : "top center+=300",
-              markers: true,
             },
           });
 

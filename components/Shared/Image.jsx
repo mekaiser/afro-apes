@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-const ImageComp = ({ src, width, height, obFitContain, alt, see }) => {
-  console.log("Image", see);
+const ImageComp = ({ src, width, height, alt }) => {
   if (width && height) {
     <Image src={src} width={width} height={height} alt={alt} priority />;
   } else {

@@ -1,16 +1,17 @@
+import { forwardRef } from "react";
 import tw from "tailwind-styled-components";
 
-const Button = ({ forHamMenu, name }) => {
+const Button = forwardRef(({ forHamMenu, name }) => {
   return (
     <Container $name={name}>
-      <Text $forHamMenu={forHamMenu} $name={name}>{name}</Text>
+      <Text $forHamMenu={forHamMenu} $name={name}>
+        {name}
+      </Text>
     </Container>
   );
-};
+});
 
 export default Button;
-
-
 
 const Container = tw.div`
   px-3.5
