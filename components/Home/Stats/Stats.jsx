@@ -116,7 +116,7 @@ const Stats = ({ globeLoadHandler }) => {
 
 export default Stats;
 
-// Tailwind Styled Components
+
 
 const Wrapper = tw.section`
   pt-24

@@ -10,7 +10,7 @@ const Button = ({ name }) => {
 
 export default Button;
 
-// Tailwind Styled Components
+
 
 const Container = tw.div`
   px-3.5

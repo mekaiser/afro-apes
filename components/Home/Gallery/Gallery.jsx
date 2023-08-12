@@ -1,6 +1,7 @@
 import galleries from "@/data/galleries";
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
-import { Elastic, gsap } from "gsap";
+import { gsap } from "gsap";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
@@ -88,7 +89,6 @@ const Gallery = () => {
               trigger: contentsRef.current,
               start: "top center-=100",
               end: "top center-=100",
-              markers: true
             },
             paused: true,
             onEnter: () => tlImgsRef.current.play(),
@@ -145,11 +145,18 @@ const Gallery = () => {
           {selectedGal.imgs.map((img, i) => (
             <GalImg
               key={img}
-              style={{ backgroundImage: `url(${img})` }}
               $selectedGalLen={selectedGal.imgs.length}
               $index={i}
               ref={(el) => (imgsRef.current[i] = el)}
-            />
+            >
+              <Image
+                src={img}
+                fill
+                style={{ objectFit: "cover" }}
+                alt="afro-apes-logo"
+                priority
+              />
+            </GalImg>
           ))}
         </GalleryContainer>
       </Container>
@@ -158,8 +165,6 @@ const Gallery = () => {
 };
 
 export default Gallery;
-
-// Tailwind Styled Components
 
 const Wrapper = tw.section`
   py-24
@@ -256,6 +261,8 @@ const GalleryContainer = tw.div`
 `;
 
 const GalImg = tw.div`
+  w-full
+  h-full
   ${(p) =>
     p.$selectedGalLen === 5 &&
     p.$index === 0 &&
@@ -292,9 +299,12 @@ const GalImg = tw.div`
   ${(p) =>
     p.$selectedGalLen === 1 &&
     "max-md:col-span-2 max-md:row-span-4 md:col-span-4 md:row-span-4"}
-  bg-cover
-  bg-no-repeat
-  bg-center
   rounded-lg
   md:rounded-xl
+  overflow-hidden
+  relative
 `;
+
+// bg-cover
+//   bg-no-repeat
+//   bg-center

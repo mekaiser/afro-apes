@@ -1,10 +1,13 @@
-'use client'
+"use client";
 
+import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
+import { Power4, gsap } from "gsap";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import Button from "./Shared/Button";
-import { usePathname } from 'next/navigation'
 
 const navItems = [
   {
@@ -34,10 +37,22 @@ const navItems = [
 ];
 
 const Nav = () => {
+  const [isDOMLoaded, setDOMLoaded] = useState(false);
   const [isHamOpen, setHamOpen] = useState(false);
-  const pathname = usePathname();
 
-  console.log('pathname', pathname);
+  const rootRef = useRef();
+  const contentsRef = useRef();
+
+  const navBarRef = useRef();
+
+  const hamMenuRef = useRef();
+  const hamItemsRef = useRef();
+
+  const screenCoverRef = useRef();
+
+  const tlHamMenuRef = useRef();
+
+  const pathname = usePathname();
 
   const hamOpenHandler = (_boolVal) => {
     setHamOpen(_boolVal);
@@ -47,19 +62,85 @@ const Nav = () => {
       : (document.body.style.overflow = "auto");
   };
 
+  useIsomorphicLayoutEffect(() => {
+    let gsapCtx = gsap.context(() => {
+      if (isDOMLoaded) {
+        const tl = gsap.timeline({ defaults: { ease: "none" } });
+        tlHamMenuRef.current = gsap.timeline({
+          paused: true,
+        });
+
+        tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+        tl.from(navBarRef.current, {
+          opacity: 0,
+          y: -80,
+          duration: 1,
+          ease: Power4.easeOut,
+        });
+
+        tlHamMenuRef.current && tlHamMenuRef.current.progress(0).kill();
+
+        tlHamMenuRef.current.to(hamMenuRef.current, {
+          x: 0,
+          duration: 0.8,
+          ease: Power4.easeOut,
+        });
+
+        tlHamMenuRef.current.to(
+          screenCoverRef.current,
+          {
+            x: 0,
+            duration: 0.8,
+            ease: Power4.easeOut,
+          },
+          "<"
+        );
+
+        tlHamMenuRef.current.from(
+          hamItemsRef.current,
+          { opacity: 0, x: 40 },
+          "<50%"
+        );
+      }
+    }, rootRef);
+
+    return () => gsapCtx.revert();
+  }, [isDOMLoaded]);
+
+  useEffect(() => {
+    if (isDOMLoaded) {
+      isHamOpen ? tlHamMenuRef.current.play() : tlHamMenuRef.current.reverse();
+    }
+  }, [isDOMLoaded, isHamOpen]);
+
+  useEffect(() => {
+    setDOMLoaded(true);
+  }, []);
+
   return (
-    <Wrapper>
-      <NavBar>
-        <MainContainer>
+    <Wrapper ref={rootRef}>
+      <NavBar ref={contentsRef}>
+        <MainContainer ref={navBarRef}>
           <NavLogoContainer>
-            <NavLogo src="assets/logos/logo.svg" />
+            <Link className="w-fit block" href="/" passHref>
+              <NavLogo>
+                <Image
+                  src="assets/logos/logo.svg"
+                  fill
+                  alt="afro-apes-logo"
+                  priority
+                />
+              </NavLogo>
+            </Link>
           </NavLogoContainer>
 
           <NavItemsMiddle>
             {navItems.map((navItem) => (
               <NavItem key={navItem.name}>
                 <Link href={navItem.link} passHref>
-                  <NavItemText $pathname={pathname} $navItemLink={navItem.link}>{navItem.name}</NavItemText>
+                  <NavItemText $pathname={pathname} $navItemLink={navItem.link}>
+                    {navItem.name}
+                  </NavItemText>
                 </Link>
               </NavItem>
             ))}
@@ -70,34 +151,43 @@ const Nav = () => {
               <Button name="Clients Area" />
               <Button name="Free Dashboard Tour" />
             </NavBtns>
-            <HamburgerIcon src="/assets/icons/hamburger.svg" onClick={() => hamOpenHandler(!isHamOpen)} />
+            <HamburgerIcon onClick={() => hamOpenHandler(true)}>
+              <Image
+                src="/assets/icons/hamburger.svg"
+                fill
+                alt="afro-apes-logo"
+                priority
+              />
+            </HamburgerIcon>
           </NavBtnsAndHamContainer>
         </MainContainer>
       </NavBar>
 
-      <HamMenuContainer>
-        <HamMenuItems>
-          <HamMenuItem>
-            <Link href="/" passHref>
-              <HamMenuItemText onClick={() => hamOpenHandler(false)}>
-                Home
-              </HamMenuItemText>
-            </Link>
-          </HamMenuItem>
-          <HamMenuItem>
-            <Link href="/" passHref>
-              <HamMenuItemText onClick={() => hamOpenHandler(false)}>
-                About
-              </HamMenuItemText>
-            </Link>
-          </HamMenuItem>
-          <HamMenuItem>
-            <Link href="/" passHref>
-              <HamMenuItemText onClick={() => hamOpenHandler(false)}>
-                Portfolio
-              </HamMenuItemText>
-            </Link>
-          </HamMenuItem>
+      <ScreenCover ref={screenCoverRef} onClick={() => hamOpenHandler(false)} />
+
+      <HamMenuContainer ref={hamMenuRef}>
+        <Image
+          src="/assets/icons/cross-btn.svg"
+          width={45}
+          height={45}
+          className={cross_btn}
+          onClick={() => hamOpenHandler(false)}
+          alt="cross-btn"
+          property
+        />
+        <HamMenuItems ref={hamItemsRef}>
+          {navItems.map((hamItem) => (
+            <HamMenuItem key={hamItem.name}>
+              <Link href={hamItem.link} passHref>
+                <HamMenuItemText
+                  $pathname={pathname}
+                  $hamItemLink={hamItem.link}
+                >
+                  {hamItem.name}
+                </HamMenuItemText>
+              </Link>
+            </HamMenuItem>
+          ))}
         </HamMenuItems>
       </HamMenuContainer>
     </Wrapper>
@@ -105,8 +195,6 @@ const Nav = () => {
 };
 
 export default Nav;
-
-// Tailwind Styled Components
 
 const Wrapper = tw.div`
   w-full
@@ -136,6 +224,7 @@ const MainContainer = tw.div`
   grid-cols-[2fr_1fr]
   md:grid-cols-[1fr_2fr]
   xl:grid-cols-[1fr_1.5fr_1.5fr]
+  overflow-hidden
 `;
 
 const NavLogoContainer = tw.div`
@@ -143,11 +232,13 @@ const NavLogoContainer = tw.div`
   h-fit
 `;
 
-const NavLogo = tw.img`
+const NavLogo = tw.div`
   w-[10rem]
   md:w-[11rem]
   xl:w-[12.25rem]
+  aspect-[4/1]
   h-auto
+  relative
 `;
 
 const NavItemsMiddle = tw.ul`
@@ -161,7 +252,7 @@ const NavItem = tw.li``;
 
 const NavItemText = tw.span`
   font-semibold
-  ${p => p.$pathname === p.$navItemLink && 'text-[#4e55ff] relative after:h-[0.15rem] after:w-1/2 after:bg-[#4e55ff] after:rounded-full after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:transition-all after:ease-in-out after:duration-300'}
+  ${(p) => p.$pathname === p.$navItemLink && `${menu_item_text}`}
   hover:text-[#4e55ff]
   transition-all
   ease-in-out
@@ -180,25 +271,37 @@ const NavBtns = tw.div`
   gap-x-4
 `;
 
-const HamburgerIcon = tw.img`
+const HamburgerIcon = tw.div`
   ml-6
   w-6
-  h-auto
+  aspect-square
   block
   xl:hidden
+  cursor-pointer
+  relative
+`;
+
+const ScreenCover = tw.div`
+  fixed
+  inset-0
+  bg-[#000000A6]
+  xl:hidden
+  translate-x-full
 `;
 
 const HamMenuContainer = tw.nav`
-  w-full
+  w-2/3
+  md:w-1/3
   h-screen
   bg-white
   flex
   justify-center
   items-center
-  hidden
+  xl:hidden
+  translate-x-full
   fixed
   top-0
-  left-0
+  right-0
   z-30
 `;
 
@@ -206,12 +309,22 @@ const HamMenuItems = tw.ul`
   flex
   flex-col
   gap-y-4
+  md:gap-y-5
 `;
 
 const HamMenuItem = tw.li``;
 
 const HamMenuItemText = tw.span`
   text-black
-  text-3xl
-  font-medium
+  text-2xl
+  md:text-3xl
+  font-bold
+  ${(p) =>
+    p.$pathname === p.$hamItemLink &&
+    `${menu_item_text} after:w-1/3  after:-bottom-1.5`}
 `;
+
+const menu_item_text =
+  "text-[#4e55ff] relative after:h-[0.15rem] after:w-1/2 after:bg-[#4e55ff] after:rounded-full after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:transition-all after:ease-in-out after:duration-300";
+
+const cross_btn = "absolute top-4 right-5 cursor-pointer";

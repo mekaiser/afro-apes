@@ -1,19 +1,75 @@
 import Button from "@/components/Shared/Button";
+import Image from "next/image";
 import tw from "tailwind-styled-components";
+
+const socials = [
+  {
+    name: "discord",
+    icon: "/assets/icons/icon-discord.svg",
+    link: "/",
+  },
+  {
+    name: "telegram",
+    icon: "/assets/icons/icon-telegram.svg",
+    link: "/",
+  },
+  {
+    name: "facebook",
+    icon: "/assets/icons/icon-facebook.svg",
+    link: "/",
+  },
+];
 
 const Hero = () => {
   return (
     <Wrapper>
       <Container>
-        <WorldImg></WorldImg>
+        <WorldImg>
+          <Image
+            src="/assets/imgs/hero-earth.png"
+            fill
+            alt="world-img"
+            priority
+          />
+        </WorldImg>
         <InnerContainer>
-          <Planet src="/assets/icons/planet.svg" />
-          <Star1 src="/assets/icons/star.svg" />
-          <Star2 src="/assets/icons/star.svg" />
-          <Star3 src="/assets/icons/star.svg" />
-          <Star4 src="/assets/icons/star.svg" />
-          <Star5 src="/assets/icons/star.svg" />
-          <StarGroup src="/assets/icons/star-group.svg" />
+          <Planet>
+            <Image
+              src="/assets/icons/planet.svg"
+              fill
+              alt="planet-icon"
+              priority
+            />
+          </Planet>
+
+          <Star1>
+            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+          </Star1>
+
+          <Star2>
+            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+          </Star2>
+
+          <Star3>
+            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+          </Star3>
+
+          <Star4>
+            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+          </Star4>
+
+          <Star5>
+            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+          </Star5>
+
+          <StarGroup>
+            <Image
+              src="/assets/icons/star-group.svg"
+              fill
+              alt="star-group-icon"
+              priority
+            />
+          </StarGroup>
 
           <LContainer>
             <LStartingTitle>Our Fund, Your Profit</LStartingTitle>
@@ -35,13 +91,31 @@ const Hero = () => {
             <JoinComContainer>
               <JoinComTitle>Join Our Community</JoinComTitle>
               <SocialsContainer>
-                <SocialIcon src="/assets/icons/icon-discord.svg" alt="" />
-                <SocialIcon src="/assets/icons/icon-telegram.svg" alt="" />
-                <SocialIcon src="/assets/icons/icon-facebook.svg" alt="" />
+                {socials.map((social) => (
+                  <SocialIcon key={social.name}>
+                    <Image
+                      src={social.icon}
+                      width={32}
+                      height={32}
+                      alt={social.name}
+                      priority
+                    />
+                  </SocialIcon>
+                ))}
+
+                <SocialIcon src="" alt="" />
+                <SocialIcon src="" alt="" />
               </SocialsContainer>
             </JoinComContainer>
           </LContainer>
           <RightContainer>
+            <Image
+              src="/assets/imgs/hero-right-rectangle.svg"
+              fill
+              style={{ objectFit: "contain" }}
+              alt="world-ring"
+              priority
+            />
             <TextContainer>
               <RStartingTitle>Introducing</RStartingTitle>
               <RTitle>
@@ -56,8 +130,6 @@ const Hero = () => {
 };
 
 export default Hero;
-
-// Tailwind Styled Components
 
 const Wrapper = tw.section`
   pt-28
@@ -163,19 +235,14 @@ const SocialsContainer = tw.div`
   sm:gap-x-5
 `;
 
-const SocialIcon = tw.img`
-  w-8
-  aspect-square
+const SocialIcon = tw.div`
+  relative
 `;
 
 const WorldImg = tw.div`
   max-lg:w-full
   lg:h-full
   aspect-square
-  bg-[url("/assets/imgs/hero-earth.png")]
-  bg-no-repeat
-  bg-cover
-  bg-center
   absolute
   bottom-0
   lg:top-0
@@ -197,16 +264,16 @@ const RightContainer = tw.div`
   lg:max-w-[20rem]
   xl:max-w-[29rem]
   aspect-[4/2.36]
-  bg-[url('/assets/imgs/hero-right-rectangle.svg')]
-  bg-contain
-  bg-no-repeat
-  bg-center
   justify-self-end
   self-center
+  relative
   z-10
 `;
 
-const TextContainer = tw.div``;
+const TextContainer = tw.div`
+  relative
+  z-10
+`;
 
 const RStartingTitle = tw.div`
   mt-10
@@ -237,12 +304,12 @@ const RTitle = tw.div`
   shadow_white_purple
 `;
 
-const Planet = tw.img`
+const Planet = tw.div`
   absolute
   w-20
   sm:w-24
   md:w-28
-  h-auto
+  aspect-[3/2]
   top-[62%]
   sm:top-[35%]
   lg:top-[64%]
@@ -251,11 +318,11 @@ const Planet = tw.img`
   lg:left-[46%]
   animate-float_y
 `;
-const Star1 = tw.img`
+const Star1 = tw.div`
   absolute
   w-5
   md:w-6
-  h-auto
+  aspect-square
   top-[3%]
   sm:top-[5%]
   2xl:top-[30%]
@@ -266,11 +333,11 @@ const Star1 = tw.img`
   animate-blink_1
 `;
 
-const Star2 = tw.img`
+const Star2 = tw.div`
   absolute
   w-4
   sm:w-5
-  h-auto
+  aspect-square
   top-[8%]
   sm:top-[12%]
   left-[80%]
@@ -279,29 +346,29 @@ const Star2 = tw.img`
   animate-blink_2
 `;
 
-const Star3 = tw.img`
+const Star3 = tw.div`
   absolute
   w-3
-  h-auto
+  aspect-square
   bottom-[6%]
   lg:bottom-[12%]
   left-[34%]
   animate-blink_3
 `;
 
-const Star4 = tw.img`
+const Star4 = tw.div`
   absolute
   w-3
-  h-auto
+  aspect-square
   bottom-[28%]
   left-[61%]
   animate-blink_4
 `;
 
-const Star5 = tw.img`
+const Star5 = tw.div`
   absolute
   w-3
-  h-auto
+  aspect-square
   bottom-[44%]
   sm:bottom-[58%]
   right-4
@@ -309,9 +376,9 @@ const Star5 = tw.img`
   animate-blink_3
 `;
 
-const StarGroup = tw.img`
+const StarGroup = tw.div`
   absolute
-  w-auto
+  aspect-[1/2]
   h-[95%]
   top-4
   left-[63%]

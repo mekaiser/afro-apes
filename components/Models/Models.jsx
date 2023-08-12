@@ -1,4 +1,3 @@
-import React from 'react';
 import tw from 'tailwind-styled-components';
 
 const Models = () => {
@@ -13,7 +12,7 @@ const Models = () => {
 
 export default Models;
 
-// Tailwind Styled Components
+
 
 const Wrapper = tw.section`
   py-24

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import tw from "tailwind-styled-components";
 import Subscribe from "./Subscribe";
+import Image from "next/image";
 
 const marketplace = [
   {
@@ -85,7 +86,15 @@ const Footer = () => {
       <Container>
         <MainContainer>
           <LogoAndNewsLContainer>
-            <Logo src="assets/logos/logo-white.svg" />
+            <Logo>
+              <Image
+                src="assets/logos/logo-white.svg"
+                fill
+                alt="afro-apes-logo"
+                priority
+              />
+            </Logo>
+
             <Subtitle>
               The world’s first and largest digital marketplace for crypto
               collectibles and non-fungible tokens (NFTs). Buy, sell, and
@@ -99,7 +108,7 @@ const Footer = () => {
             <NavItemsTitle>Marketplace</NavItemsTitle>
             <NavItemsContainer>
               {marketplace.map((item) => (
-                <Link className={link} key={item.name} href={item.link}>
+                <Link className="w-fit" key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
@@ -109,7 +118,7 @@ const Footer = () => {
             <NavItemsTitle>My Account</NavItemsTitle>
             <NavItemsContainer>
               {myAccount.map((item) => (
-                <Link className={link} key={item.name} href={item.link}>
+                <Link className="w-fit" key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
@@ -119,7 +128,7 @@ const Footer = () => {
             <NavItemsTitle>Resources</NavItemsTitle>
             <NavItemsContainer>
               {resources.map((item) => (
-                <Link className={link} key={item.name} href={item.link}>
+                <Link className="w-fit" key={item.name} href={item.link}>
                   <NavItem>{item.name}</NavItem>
                 </Link>
               ))}
@@ -153,8 +162,6 @@ const Footer = () => {
 
 export default Footer;
 
-// Tailwind Styled Components
-
 const Wrapper = tw.section`
   bg-[#121117]
   font-jost
@@ -180,11 +187,12 @@ const MainContainer = tw.div`
 
 const LogoAndNewsLContainer = tw.div``;
 
-const Logo = tw.img`
+const Logo = tw.div`
   w-[10rem]
   lg:w-[12rem]
   xl:w-[14.776rem]
-  h-auto
+  aspect-[4/1]
+  relative
 `;
 
 const Subtitle = tw.div`
@@ -270,4 +278,4 @@ const TOS = tw.div``;
 
 // Tailwind Classes
 
-const link = 'w-fit'
+const link = "";

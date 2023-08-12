@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import tw from "tailwind-styled-components";
 
 const Subscribe = () => {
@@ -8,7 +8,13 @@ const Subscribe = () => {
       <EmailInputContainer>
         <EmailInput placeholder="Enter your email" type="text" name="email" />
         <SubmitBtn>
-          <SendIcon src="assets/icons/send.svg" />
+          <Image
+            src="assets/icons/send.svg"
+            width={24}
+            height={21}
+            alt="afro-apes-logo"
+            priority
+          />
         </SubmitBtn>
       </EmailInputContainer>
     </>
@@ -16,8 +22,6 @@ const Subscribe = () => {
 };
 
 export default Subscribe;
-
-// Tailwind Styled Components
 
 const Title = tw.div`
   text-xl
@@ -68,7 +72,4 @@ const SubmitBtn = tw.div`
   cursor-pointer
 `;
 
-const SendIcon = tw.img`
-  w-[1.48rem]
-  h-auto
-`;
+const SendIcon = "w-[1.48rem] h-auto";

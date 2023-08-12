@@ -30,7 +30,7 @@ const Stat = forwardRef(({ title, num, suffix, startCount, index }, ref) => {
 
 export default Stat;
 
-// Tailwind Styled Components
+
 
 const Container = tw.div`
   flex

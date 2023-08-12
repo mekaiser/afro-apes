@@ -34,7 +34,7 @@ const Loader = forwardRef(({}, ref) => {
 
 export default Loader;
 
-// Tailwind Styled Components
+
 
 const Wrapper = tw.div`
   fixed
