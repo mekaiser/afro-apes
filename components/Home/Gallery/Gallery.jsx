@@ -86,8 +86,9 @@ const Gallery = () => {
           tlImgsRef.current = gsap.timeline({
             scrollTrigger: {
               trigger: contentsRef.current,
-              start: "top center",
-              end: "top center",
+              start: "top center-=100",
+              end: "top center-=100",
+              markers: true
             },
             paused: true,
             onEnter: () => tlImgsRef.current.play(),
