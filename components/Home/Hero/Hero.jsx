@@ -63,7 +63,6 @@ const Hero = () => {
               trigger: stellarContainerRef.current,
               start: () => (isMobile ? "top center" : "top bottom"),
               end: () => (isMobile ? "top center" : "top bottom"),
-              markers: true,
             },
           });
 
