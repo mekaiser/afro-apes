@@ -1,9 +1,9 @@
 import tw from "tailwind-styled-components";
 
-const Button = ({ name }) => {
+const Button = ({ forHamMenu, name }) => {
   return (
     <Container $name={name}>
-      <Text $name={name}>{name}</Text>
+      <Text $forHamMenu={forHamMenu} $name={name}>{name}</Text>
     </Container>
   );
 };
@@ -47,6 +47,7 @@ const Text = tw.div`
   text-sm
   sm:text-base
   font-bold
+  ${(p) => p.$forHamMenu && "sm:text-lg"}
   ${(p) => p.$name === "Clients Area" && "text-white"}
   ${(p) => p.$name === "Get Funded" && "text-white"}
   ${(p) =>

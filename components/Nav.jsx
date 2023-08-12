@@ -177,6 +177,8 @@ const Nav = () => {
               </Link>
             </HamMenuItem>
           ))}
+          <Button forHamMenu name="Clients Area" />
+          <Button forHamMenu name="Free Dashboard Tour" />
         </HamMenuItems>
       </HamMenuContainer>
     </Wrapper>
@@ -283,7 +285,7 @@ const ScreenCover = tw.div`
 
 const HamMenuContainer = tw.nav`
   w-2/3
-  md:w-1/3
+  md:w-1/2
   h-screen
   bg-white
   flex
@@ -308,18 +310,19 @@ const HamMenuItem = tw.li``;
 
 const HamMenuItemText = tw.span`
   text-black
-  text-2xl
-  md:text-3xl
+  text-xl
+  sm:text-2xl
   font-bold
   menu_item_text
-  ${(p) => p.$pathname === p.$hamItemLink && "text-[#4e55ff]  after:w-1/2"}
+  ${(p) => p.$pathname === p.$hamItemLink && "text-[#4e55ff]  after:w-1/3"}
 `;
 
 const CrossBtnIcon = tw.div`
   w-[2.8rem]
   aspect-square
   absolute 
-  top-4 
-  right-5 
+  top-6
+  right-4 
+  sm:right-8 
   cursor-pointer
 `;
