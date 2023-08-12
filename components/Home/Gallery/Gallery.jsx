@@ -1,7 +1,7 @@
+import ImageComp from "@/components/Shared/Image";
 import galleries from "@/data/galleries";
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
 import { gsap } from "gsap";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
@@ -149,13 +149,7 @@ const Gallery = () => {
               $index={i}
               ref={(el) => (imgsRef.current[i] = el)}
             >
-              <Image
-                src={img}
-                fill
-                style={{ objectFit: "cover" }}
-                alt="afro-apes-logo"
-                priority
-              />
+              <ImageComp src={img} alt="gal-img" />
             </GalImg>
           ))}
         </GalleryContainer>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import tw from "tailwind-styled-components";
 import Subscribe from "./Subscribe";
 import Image from "next/image";
+import ImageComp from "@/components/Shared/Image";
 
 const marketplace = [
   {
@@ -87,11 +88,9 @@ const Footer = () => {
         <MainContainer>
           <LogoAndNewsLContainer>
             <Logo>
-              <Image
+              <ImageComp
                 src="assets/logos/logo-white.svg"
-                fill
                 alt="afro-apes-logo"
-                priority
               />
             </Logo>
 

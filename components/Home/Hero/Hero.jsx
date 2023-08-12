@@ -1,4 +1,5 @@
 import Button from "@/components/Shared/Button";
+import ImageComp from "@/components/Shared/Image";
 import Image from "next/image";
 import tw from "tailwind-styled-components";
 
@@ -25,49 +26,37 @@ const Hero = () => {
     <Wrapper>
       <Container>
         <WorldImg>
-          <Image
-            src="/assets/imgs/hero-earth.png"
-            fill
-            alt="world-img"
-            priority
-          />
+          <ImageComp src="/assets/imgs/hero-earth.png" alt="world-img" />
         </WorldImg>
         <InnerContainer>
           <Planet>
-            <Image
-              src="/assets/icons/planet.svg"
-              fill
-              alt="planet-icon"
-              priority
-            />
+            <ImageComp src="/assets/icons/planet.svg" alt="planet-icon" />
           </Planet>
 
           <Star1>
-            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+            <ImageComp src="/assets/icons/star.svg" alt="star-icon" />
           </Star1>
 
           <Star2>
-            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+            <ImageComp src="/assets/icons/star.svg" alt="star-icon" />
           </Star2>
 
           <Star3>
-            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+            <ImageComp src="/assets/icons/star.svg" alt="star-icon" />
           </Star3>
 
           <Star4>
-            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+            <ImageComp src="/assets/icons/star.svg" alt="star-icon" />
           </Star4>
 
           <Star5>
-            <Image src="/assets/icons/star.svg" fill alt="star-icon" priority />
+            <ImageComp src="/assets/icons/star.svg" alt="star-icon" />
           </Star5>
 
           <StarGroup>
-            <Image
+            <ImageComp
               src="/assets/icons/star-group.svg"
-              fill
               alt="star-group-icon"
-              priority
             />
           </StarGroup>
 
@@ -93,12 +82,11 @@ const Hero = () => {
               <SocialsContainer>
                 {socials.map((social) => (
                   <SocialIcon key={social.name}>
-                    <Image
+                    <ImageComp
                       src={social.icon}
                       width={32}
                       height={32}
                       alt={social.name}
-                      priority
                     />
                   </SocialIcon>
                 ))}
@@ -109,12 +97,10 @@ const Hero = () => {
             </JoinComContainer>
           </LContainer>
           <RightContainer>
-            <Image
+            <ImageComp
               src="/assets/imgs/hero-right-rectangle.svg"
-              fill
-              style={{ objectFit: "contain" }}
               alt="world-ring"
-              priority
+              obFitContain
             />
             <TextContainer>
               <RStartingTitle>Introducing</RStartingTitle>

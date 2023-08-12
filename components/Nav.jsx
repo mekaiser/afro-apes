@@ -2,12 +2,12 @@
 
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
 import { Power4, gsap } from "gsap";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import Button from "./Shared/Button";
+import ImageComp from "./Shared/Image";
 
 const navItems = [
   {
@@ -124,12 +124,7 @@ const Nav = () => {
           <NavLogoContainer>
             <Link className="w-fit block" href="/" passHref>
               <NavLogo>
-                <Image
-                  src="assets/logos/logo.svg"
-                  fill
-                  alt="afro-apes-logo"
-                  priority
-                />
+                <ImageComp src="assets/logos/logo.svg" alt="afro-apes-logo" />
               </NavLogo>
             </Link>
           </NavLogoContainer>
@@ -152,11 +147,9 @@ const Nav = () => {
               <Button name="Free Dashboard Tour" />
             </NavBtns>
             <HamburgerIcon onClick={() => hamOpenHandler(true)}>
-              <Image
+              <ImageComp
                 src="/assets/icons/hamburger.svg"
-                fill
-                alt="afro-apes-logo"
-                priority
+                alt="hamburger-icon"
               />
             </HamburgerIcon>
           </NavBtnsAndHamContainer>
@@ -166,15 +159,10 @@ const Nav = () => {
       <ScreenCover ref={screenCoverRef} onClick={() => hamOpenHandler(false)} />
 
       <HamMenuContainer ref={hamMenuRef}>
-        <Image
-          src="/assets/icons/cross-btn.svg"
-          width={45}
-          height={45}
-          className={cross_btn}
-          onClick={() => hamOpenHandler(false)}
-          alt="cross-btn"
-          property
-        />
+        <CrossBtnIcon onClick={() => hamOpenHandler(false)}>
+          <ImageComp src="/assets/icons/cross-btn.svg" alt="cross-btn" />
+        </CrossBtnIcon>
+
         <HamMenuItems ref={hamItemsRef}>
           {navItems.map((hamItem) => (
             <HamMenuItem key={hamItem.name}>
@@ -256,7 +244,7 @@ const NavItem = tw.li``;
 const NavItemText = tw.span`
   font-semibold
   menu_item_text
-  ${(p) => p.$pathname === p.$navItemLink && 'text-[#4e55ff]  after:w-1/2'}
+  ${(p) => p.$pathname === p.$navItemLink && "text-[#4e55ff]  after:w-1/2"}
   hover:text-[#4e55ff]
   transition-all
   ease-in-out
@@ -324,8 +312,14 @@ const HamMenuItemText = tw.span`
   md:text-3xl
   font-bold
   menu_item_text
-  ${(p) =>
-    p.$pathname === p.$hamItemLink && 'text-[#4e55ff]  after:w-1/2'}
+  ${(p) => p.$pathname === p.$hamItemLink && "text-[#4e55ff]  after:w-1/2"}
 `;
 
-const cross_btn = "absolute top-4 right-5 cursor-pointer";
+const CrossBtnIcon = tw.div`
+  w-[2.8rem]
+  aspect-square
+  absolute 
+  top-4 
+  right-5 
+  cursor-pointer
+`;

@@ -1,3 +1,4 @@
+import ImageComp from "@/components/Shared/Image";
 import Image from "next/image";
 import tw from "tailwind-styled-components";
 
@@ -8,13 +9,9 @@ const Subscribe = () => {
       <EmailInputContainer>
         <EmailInput placeholder="Enter your email" type="text" name="email" />
         <SubmitBtn>
-          <Image
-            src="assets/icons/send.svg"
-            width={24}
-            height={21}
-            alt="afro-apes-logo"
-            priority
-          />
+          <SubmitIcon>
+            <ImageComp src="assets/icons/send.svg" alt="afro-apes-logo" />
+          </SubmitIcon>
         </SubmitBtn>
       </EmailInputContainer>
     </>
@@ -72,4 +69,8 @@ const SubmitBtn = tw.div`
   cursor-pointer
 `;
 
-const SendIcon = "w-[1.48rem] h-auto";
+const SubmitIcon = tw.div`
+  w-[1.5rem]
+  aspect-square
+  relative
+`;
