@@ -144,7 +144,7 @@ const Hero = () => {
           tlStellarItems
             .from(startingTStellarRef.current, {
               opacity: 0,
-              y: 20,
+              y: 30,
               duration: 1.4,
               delay: isMobile ? 0 : 1,
               ease: Power4.easeOut,
