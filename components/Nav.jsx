@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import tw from "tailwind-styled-components";
 import Button from "./Shared/Button";
+import { usePathname } from 'next/navigation'
 
 const navItems = [
   {
@@ -12,28 +13,31 @@ const navItems = [
   },
   {
     name: "Models",
-    link: "/",
+    link: "/models",
   },
   {
     name: "Pricing",
-    link: "/",
+    link: "/pricing",
   },
   {
     name: "FAQ",
-    link: "/",
+    link: "/faq",
   },
   {
     name: "Rules",
-    link: "/",
+    link: "/rules",
   },
   {
     name: "Be a partner",
-    link: "/",
+    link: "/be-a-partner",
   },
 ];
 
 const Nav = () => {
   const [isHamOpen, setHamOpen] = useState(false);
+  const pathname = usePathname();
+
+  console.log('pathname', pathname);
 
   const hamOpenHandler = (_boolVal) => {
     setHamOpen(_boolVal);
@@ -55,7 +59,7 @@ const Nav = () => {
             {navItems.map((navItem) => (
               <NavItem key={navItem.name}>
                 <Link href={navItem.link} passHref>
-                  <NavItemText>{navItem.name}</NavItemText>
+                  <NavItemText $pathname={pathname} $navItemLink={navItem.link}>{navItem.name}</NavItemText>
                 </Link>
               </NavItem>
             ))}
@@ -126,7 +130,7 @@ const NavBar = tw.nav`
 
 const MainContainer = tw.div`
   w-11/12
-  lg:max-w-[90rem] 
+  lg:max-w-[83rem] 
   mx-auto
   grid 
   grid-cols-[2fr_1fr]
@@ -157,6 +161,11 @@ const NavItem = tw.li``;
 
 const NavItemText = tw.span`
   font-semibold
+  ${p => p.$pathname === p.$navItemLink && 'text-[#4e55ff] relative after:h-[0.15rem] after:w-1/2 after:bg-[#4e55ff] after:rounded-full after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:transition-all after:ease-in-out after:duration-300'}
+  hover:text-[#4e55ff]
+  transition-all
+  ease-in-out
+  duration-300
 `;
 
 const NavBtnsAndHamContainer = tw.div`
