@@ -49,65 +49,42 @@ const Gallery = () => {
   };
 
   useIsomorphicLayoutEffect(() => {
-    let mm = gsap.matchMedia(),
-      breakPoint = 640;
+    let gsapCtx = gsap.context(() => {
+      if (isDOMLoaded) {
+        const tl = gsap.timeline({ defaults: { ease: "none" } });
 
-    mm.add(
-      {
-        isDesktop: `(min-width: ${breakPoint}px)`,
-        isMobile: `(max-width: ${breakPoint - 1}px)`,
-      },
-      (context) => {
-        if (isDOMLoaded) {
-          let { isDesktop, isMobile } = context.conditions;
+        tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+      }
+    }, rootRef);
 
-          const tl = gsap.timeline({ defaults: { ease: "none" } });
-
-          tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
-        }
-      },
-      rootRef
-    );
-
-    return () => mm.revert();
+    return () => gsapCtx.revert();
   }, [isDOMLoaded]);
 
   useIsomorphicLayoutEffect(() => {
-    let mm = gsap.matchMedia(),
-      breakPoint = 640;
+    let gsapCtx = gsap.context(() => {
+      if (isDOMLoaded) {
+        tlImgsRef.current = gsap.timeline({
+          scrollTrigger: {
+            trigger: contentsRef.current,
+            start: "top center-=100",
+            end: "top center-=100",
+          },
+          paused: true,
+          onEnter: () => tlImgsRef.current.play(),
+        });
 
-    mm.add(
-      {
-        isDesktop: `(min-width: ${breakPoint}px)`,
-        isMobile: `(max-width: ${breakPoint - 1}px)`,
-      },
-      (context) => {
-        if (isDOMLoaded) {
-          let { isDesktop, isMobile } = context.conditions;
-          tlImgsRef.current = gsap.timeline({
-            scrollTrigger: {
-              trigger: contentsRef.current,
-              start: "top center-=100",
-              end: "top center-=100",
-            },
-            paused: true,
-            onEnter: () => tlImgsRef.current.play(),
-          });
+        const imgsGsapArr = gsap.utils.toArray([...imgsRef.current]);
+        tlImgsRef.current.from(imgsGsapArr, {
+          opacity: 0,
+          scale: 0.9,
+          // ease: Elastic.easeInOut.config(0.8, 0.35),
+          stagger: 0.1,
+          duration: 0.3,
+        });
+      }
+    }, rootRef);
 
-          const imgsGsapArr = gsap.utils.toArray([...imgsRef.current]);
-          tlImgsRef.current.from(imgsGsapArr, {
-            opacity: 0,
-            scale: 0.9,
-            // ease: Elastic.easeInOut.config(0.8, 0.35),
-            stagger: 0.1,
-            duration: 0.3,
-          });
-        }
-      },
-      rootRef
-    );
-
-    return () => mm.revert();
+    return () => gsapCtx.revert();
   }, [isDOMLoaded, selectedGal]);
 
   useEffect(() => {
