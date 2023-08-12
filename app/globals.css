@@ -31,4 +31,19 @@
   .hero_resp_title {
     font-size: clamp(1rem, 5vw, 3rem);
   }
+
+  .menu_item_text {
+    @apply relative 
+    after:h-[0.15rem] 
+    after:w-0 
+    after:bg-[#4e55ff] 
+    after:rounded-full 
+    after:absolute 
+    after:-bottom-1.5 
+    after:left-1/2 
+    after:-translate-x-1/2 
+    after:transition-all 
+    after:ease-in-out 
+    after:duration-300;
+  }
 }

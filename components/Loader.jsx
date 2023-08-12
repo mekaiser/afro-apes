@@ -40,7 +40,7 @@ const Wrapper = tw.div`
   fixed
   inset-0
   bg-white
-  z-50
+  z-40
   flex
   justify-center
   items-center

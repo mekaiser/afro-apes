@@ -71,9 +71,9 @@ const Nav = () => {
         });
 
         tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
-        tl.from(navBarRef.current, {
-          opacity: 0,
-          y: -80,
+        tl.to(navBarRef.current, {
+          opacity: 1,
+          y: 0,
           duration: 1,
           ease: Power4.easeOut,
         });
@@ -182,6 +182,7 @@ const Nav = () => {
                 <HamMenuItemText
                   $pathname={pathname}
                   $hamItemLink={hamItem.link}
+                  onClick={() => hamOpenHandler(false)}
                 >
                   {hamItem.name}
                 </HamMenuItemText>
@@ -205,7 +206,7 @@ const Wrapper = tw.div`
   fixed 
   top-0 
   left-0
-  z-40
+  z-50
 `;
 
 const NavBar = tw.nav`
@@ -224,6 +225,8 @@ const MainContainer = tw.div`
   grid-cols-[2fr_1fr]
   md:grid-cols-[1fr_2fr]
   xl:grid-cols-[1fr_1.5fr_1.5fr]
+  -translate-y-[5rem]
+  opacity-0
   overflow-hidden
 `;
 
@@ -252,7 +255,8 @@ const NavItem = tw.li``;
 
 const NavItemText = tw.span`
   font-semibold
-  ${(p) => p.$pathname === p.$navItemLink && `${menu_item_text}`}
+  menu_item_text
+  ${(p) => p.$pathname === p.$navItemLink && 'text-[#4e55ff]  after:w-1/2'}
   hover:text-[#4e55ff]
   transition-all
   ease-in-out
@@ -302,7 +306,7 @@ const HamMenuContainer = tw.nav`
   fixed
   top-0
   right-0
-  z-30
+  z-50
 `;
 
 const HamMenuItems = tw.ul`
@@ -319,12 +323,9 @@ const HamMenuItemText = tw.span`
   text-2xl
   md:text-3xl
   font-bold
+  menu_item_text
   ${(p) =>
-    p.$pathname === p.$hamItemLink &&
-    `${menu_item_text} after:w-1/3  after:-bottom-1.5`}
+    p.$pathname === p.$hamItemLink && 'text-[#4e55ff]  after:w-1/2'}
 `;
-
-const menu_item_text =
-  "text-[#4e55ff] relative after:h-[0.15rem] after:w-1/2 after:bg-[#4e55ff] after:rounded-full after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:transition-all after:ease-in-out after:duration-300";
 
 const cross_btn = "absolute top-4 right-5 cursor-pointer";

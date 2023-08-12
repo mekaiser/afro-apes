@@ -1,6 +1,6 @@
+import Nav from '@/components/Nav'
 import gesricsFont from '@/helpers/loadFonts'
 import './globals.css'
-import Nav from '@/components/Nav'
 
 export const metadata = {
   title: 'Afro Apes',
