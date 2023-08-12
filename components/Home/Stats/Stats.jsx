@@ -1,6 +1,6 @@
 import stats from "@/data/stats";
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
-import { Elastic, gsap } from "gsap";
+import { Elastic, Power4, gsap } from "gsap";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 import Globe from "./Globe";
@@ -12,6 +12,9 @@ const Stats = ({ globeLoadHandler }) => {
 
   const rootRef = useRef();
   const contentsRef = useRef();
+
+  const titleRef = useRef();
+  const subtitleRef = useRef();
 
   const globeContainerRef = useRef();
   const statsContainerRef = useRef();
@@ -31,6 +34,13 @@ const Stats = ({ globeLoadHandler }) => {
           let { isDesktop, isMobile } = context.conditions;
 
           const tl = gsap.timeline({ defaults: { ease: "none" } });
+          const tlTitleAndSubtitle = gsap.timeline({
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: isMobile ? "top center+=200" : "top center+=300",
+              end: isMobile ? "top center+=200" : "top center+=300",
+            },
+          });
           const tlGlobe = gsap.timeline({
             scrollTrigger: {
               trigger: contentsRef.current,
@@ -52,6 +62,18 @@ const Stats = ({ globeLoadHandler }) => {
           const statsGsapArr = gsap.utils.toArray([...statsRef.current]);
 
           tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+          tlTitleAndSubtitle
+            .from(titleRef.current, {
+              y: 100,
+              ease: Power4.easeOut,
+              duration: 1.5,
+            })
+            .from(
+              subtitleRef.current,
+              { opacity: 0, x: -80, ease: Power4.easeOut, duration: 1.5 },
+              "<20%"
+            );
+
           tlGlobe.from(globeContainerRef.current, {
             opacity: 0,
             scale: 0.5,
@@ -81,10 +103,13 @@ const Stats = ({ globeLoadHandler }) => {
     <Wrapper ref={rootRef}>
       <Container ref={contentsRef}>
         <TitleAndSubContainer>
-          <Title>
-            <TitleWords>Next Ventures</TitleWords> so far....
-          </Title>
-          <Subtitle>
+          <TitleContainer>
+            <Title ref={titleRef}>
+              <TitleWords>Next Ventures</TitleWords> so far....
+            </Title>
+          </TitleContainer>
+
+          <Subtitle ref={subtitleRef}>
             Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
             sint. Velit officia
           </Subtitle>
@@ -116,8 +141,6 @@ const Stats = ({ globeLoadHandler }) => {
 
 export default Stats;
 
-
-
 const Wrapper = tw.section`
   pt-24
   sm:pt-24
@@ -131,6 +154,10 @@ const TitleAndSubContainer = tw.div`
   w-11/12
   lg:max-w-[110rem] 
   mx-auto
+`;
+
+const TitleContainer = tw.div`
+  overflow-hidden
 `;
 
 const Title = tw.h2`

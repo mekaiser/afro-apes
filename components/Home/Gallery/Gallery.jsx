@@ -1,6 +1,7 @@
 import ImageComp from "@/components/Shared/Image";
 import galleries from "@/data/galleries";
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
+import { Power4 } from "gsap";
 import { gsap } from "gsap";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
@@ -35,6 +36,8 @@ const Gallery = () => {
   const rootRef = useRef();
   const contentsRef = useRef();
 
+  const titleRef = useRef();
+
   const galContainer = useRef();
   const imgsRef = useRef([]);
 
@@ -49,15 +52,40 @@ const Gallery = () => {
   };
 
   useIsomorphicLayoutEffect(() => {
-    let gsapCtx = gsap.context(() => {
-      if (isDOMLoaded) {
-        const tl = gsap.timeline({ defaults: { ease: "none" } });
+    let mm = gsap.matchMedia(),
+      breakPoint = 640;
 
-        tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
-      }
-    }, rootRef);
+    mm.add(
+      {
+        isDesktop: `(min-width: ${breakPoint}px)`,
+        isMobile: `(max-width: ${breakPoint - 1}px)`,
+      },
+      (context) => {
+        if (isDOMLoaded) {
+          let { isDesktop, isMobile } = context.conditions;
 
-    return () => gsapCtx.revert();
+          const tl = gsap.timeline({ defaults: { ease: "none" } });
+          const tlTitle = gsap.timeline({
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: isMobile ? "top center+=200" : "top center+=300",
+              end: isMobile ? "top center+=200" : "top center+=300",
+              markers: true,
+            },
+          });
+
+          tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
+          tlTitle.from(titleRef.current, {
+            y: 120,
+            ease: Power4.easeOut,
+            duration: 1.5,
+          });
+        }
+      },
+      rootRef
+    );
+
+    return () => mm.revert();
   }, [isDOMLoaded]);
 
   useIsomorphicLayoutEffect(() => {
@@ -100,7 +128,7 @@ const Gallery = () => {
     <Wrapper ref={rootRef}>
       <Container ref={contentsRef}>
         <TitleContainer>
-          <Title>Next Venture is a family of brands</Title>
+          <Title ref={titleRef}>Next Venture is a family of brands</Title>
         </TitleContainer>
 
         <BtnsContainer>
@@ -152,6 +180,7 @@ const Container = tw.div`
 const TitleContainer = tw.div`
   flex
   justify-center
+  overflow-hidden
 `;
 
 const Title = tw.h2`
