@@ -35,6 +35,7 @@ const Container = tw.div`
   flex
   flex-col
   items-center
+  gap-y-3
 `;
 
 const NumContainer = tw.div`

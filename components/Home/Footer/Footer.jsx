@@ -175,7 +175,7 @@ const MainContainer = tw.div`
   mx-auto
   pt-24
   pb-16
-  md:pb-24
+  md:pb-[7.5rem]
   grid
   grid-cols-1
   sm:grid-cols-2

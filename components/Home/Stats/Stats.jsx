@@ -207,7 +207,7 @@ const StatsContainer = tw.div`
 
 const StatsMainContainer = tw.div`
   max-md:py-8
-  py-12
+  py-14
   w-11/12
   lg:max-w-[55rem] 
   mx-auto
