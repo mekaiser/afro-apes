@@ -1,16 +1,16 @@
 import tw from "tailwind-styled-components";
 
-const Models = () => {
+const BeAPartner = () => {
   return (
     <Wrapper>
       <Container>
-        <Text>Models</Text>
+        <Text>Be A Partner</Text>
       </Container>
     </Wrapper>
   );
 };
 
-export default Models;
+export default BeAPartner;
 
 const Wrapper = tw.section`
   py-24
