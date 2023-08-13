@@ -86,7 +86,7 @@ const Footer = () => {
     <Wrapper>
       <Container>
         <MainContainer>
-          <LogoAndNewsLContainer>
+          <LogoAndNLetterContainer>
             <Logo>
               <ImageComp
                 src="assets/logos/logo-white.svg"
@@ -102,7 +102,7 @@ const Footer = () => {
             <SubscribeContainerTop>
               <Subscribe />
             </SubscribeContainerTop>
-          </LogoAndNewsLContainer>
+          </LogoAndNLetterContainer>
           <MarketPlaceContainer>
             <NavItemsTitle>Marketplace</NavItemsTitle>
             <NavItemsContainer>
@@ -184,11 +184,11 @@ const MainContainer = tw.div`
   lg:gap-12
 `;
 
-const LogoAndNewsLContainer = tw.div``;
+const LogoAndNLetterContainer = tw.div``;
 
 const Logo = tw.div`
-  w-[10rem]
-  lg:w-[12rem]
+  w-40
+  lg:w-48
   xl:w-[14.776rem]
   aspect-[4/1]
   relative
@@ -274,7 +274,3 @@ const PPAndTOSContainer = tw.div`
 const PP = tw.div``;
 
 const TOS = tw.div``;
-
-// Tailwind Classes
-
-const link = "";

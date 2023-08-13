@@ -7,7 +7,6 @@ const Stat = forwardRef(({ title, num, suffix, startCount, index }, ref) => {
   const { countUp, start, update } = useCountUp({
     ref: countUpRef,
     start: 0,
-    // end: num,
     duration: 4,
   });
 

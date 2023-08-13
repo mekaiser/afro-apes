@@ -29,8 +29,8 @@ const Title = tw.div`
 `;
 
 const EmailInputContainer = tw.div`
-  w-[18rem]
-  lg:w-[20rem]
+  w-72
+  lg:w-80
   mt-4
   flex
   items-center
@@ -40,7 +40,7 @@ const EmailInputContainer = tw.div`
 `;
 
 const EmailInput = tw.input`
-  w-[15rem]
+  w-60
   lg:w-[17rem]
   px-4
   lg:px-5
@@ -70,7 +70,7 @@ const SubmitBtn = tw.div`
 `;
 
 const SubmitIcon = tw.div`
-  w-[1.5rem]
+  w-6
   aspect-square
   relative
 `;

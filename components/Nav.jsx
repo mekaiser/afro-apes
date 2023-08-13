@@ -66,9 +66,7 @@ const Nav = () => {
     let gsapCtx = gsap.context(() => {
       if (isDOMLoaded) {
         const tl = gsap.timeline({ defaults: { ease: "none" } });
-        tlHamMenuRef.current = gsap.timeline({
-          paused: true,
-        });
+        tlHamMenuRef.current = gsap.timeline();
 
         tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
         tl.to(navBarRef.current, {
@@ -109,7 +107,7 @@ const Nav = () => {
 
   useEffect(() => {
     if (isDOMLoaded) {
-      isHamOpen ? tlHamMenuRef.current.play() : tlHamMenuRef.current.reverse();
+      tlHamMenuRef.current.reversed(!isHamOpen);
     }
   }, [isDOMLoaded, isHamOpen]);
 
@@ -226,8 +224,8 @@ const NavLogoContainer = tw.div`
 `;
 
 const NavLogo = tw.div`
-  w-[10rem]
-  md:w-[11rem]
+  w-40
+  md:w-44
   xl:w-[12.25rem]
   aspect-[4/1]
   h-auto

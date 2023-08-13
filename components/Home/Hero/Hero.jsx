@@ -30,17 +30,17 @@ const Hero = () => {
   const rootRef = useRef();
   const contentsRef = useRef();
 
-  const startingTMainRef = useRef();
-  const titleMainFLineRef = useRef();
-  const titleMainSLineRef = useRef();
+  const startingMainTRef = useRef();
+  const mainTitleFLineRef = useRef();
+  const mainTitleSLineRef = useRef();
   const subtitleRef = useRef();
   const btnsRef = useRef();
   const joinComTextRef = useRef();
   const socialsRef = useRef();
 
   const stellarContainerRef = useRef();
-  const startingTStellarRef = useRef();
-  const titleStellarRef = useRef();
+  const stellarStartingTRef = useRef();
+  const stellarTitleRef = useRef();
 
   useIsomorphicLayoutEffect(() => {
     let mm = gsap.matchMedia(),
@@ -76,7 +76,7 @@ const Hero = () => {
 
           tl.from(contentsRef.current, { ease: "linear", autoAlpha: 0 });
           tlLeftItems
-            .from(startingTMainRef.current, {
+            .from(startingMainTRef.current, {
               opacity: 0,
               x: 100,
               duration: 1.2,
@@ -84,7 +84,7 @@ const Hero = () => {
               ease: Power4.easeOut,
             })
             .from(
-              titleMainFLineRef.current,
+              mainTitleFLineRef.current,
               {
                 opacity: 0,
                 y: 100,
@@ -94,7 +94,7 @@ const Hero = () => {
               "<20%"
             )
             .from(
-              titleMainSLineRef.current,
+              mainTitleSLineRef.current,
               { opacity: 0, y: 100, duration: 1.4, ease: Power4.easeOut },
               "<"
             )
@@ -142,7 +142,7 @@ const Hero = () => {
             );
 
           tlStellarItems
-            .from(startingTStellarRef.current, {
+            .from(stellarStartingTRef.current, {
               opacity: 0,
               y: 30,
               duration: 1.4,
@@ -150,7 +150,7 @@ const Hero = () => {
               ease: Power4.easeOut,
             })
             .from(
-              titleStellarRef.current,
+              stellarTitleRef.current,
               {
                 opacity: 0,
                 scale: 1.4,
@@ -210,18 +210,18 @@ const Hero = () => {
           </StarGroup>
 
           <MainContainer>
-            <MainStartingTitle ref={startingTMainRef}>
+            <MainStartingTitle ref={startingMainTRef}>
               Our Fund, Your Profit
             </MainStartingTitle>
             <MainTitle>
               <MainTLineContainer>
-                <MainTFirstLine ref={titleMainFLineRef}>
+                <MainTFirstLine ref={mainTitleFLineRef}>
                   Funding Promising
                 </MainTFirstLine>
               </MainTLineContainer>
 
               <MainTLineContainer>
-                <MainTSecondLine ref={titleMainSLineRef}>
+                <MainTSecondLine ref={mainTitleSLineRef}>
                   <LTGradWrd>Forex Traders</LTGradWrd> Worldwide
                 </MainTSecondLine>
               </MainTLineContainer>
@@ -272,10 +272,10 @@ const Hero = () => {
             />
             ;
             <TextContainer>
-              <StellarStartingTitle ref={startingTStellarRef}>
+              <StellarStartingTitle ref={stellarStartingTRef}>
                 Introducing
               </StellarStartingTitle>
-              <StellarTitle ref={titleStellarRef}>
+              <StellarTitle ref={stellarTitleRef}>
                 Stellar <br /> Challenge
               </StellarTitle>
             </TextContainer>
@@ -431,7 +431,7 @@ const WorldImg = tw.div`
 const StellarContainer = tw.div`
   max-lg:mt-24
   w-full
-  lg:max-w-[20rem]
+  lg:max-w-80
   xl:max-w-[29rem]
   aspect-[4/2.36]
   justify-self-end

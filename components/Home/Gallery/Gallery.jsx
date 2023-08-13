@@ -1,8 +1,7 @@
-import ImageComp from "@/components/Shared/Image";
 import galleries from "@/data/galleries";
 import { useIsomorphicLayoutEffect } from "@/helpers/isomorphicEffect";
-import { Power4 } from "gsap";
-import { gsap } from "gsap";
+import { Power4, gsap } from "gsap";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import tw from "tailwind-styled-components";
 
@@ -42,6 +41,7 @@ const Gallery = () => {
   const imgsRef = useRef([]);
 
   const tlImgsRef = useRef();
+
   const galleryHandler = (_id) => {
     tlImgsRef.current.reverse();
 
@@ -101,10 +101,10 @@ const Gallery = () => {
         });
 
         const imgsGsapArr = gsap.utils.toArray([...imgsRef.current]);
+
         tlImgsRef.current.from(imgsGsapArr, {
           opacity: 0,
           scale: 0.9,
-          // ease: Elastic.easeInOut.config(0.8, 0.35),
           stagger: 0.1,
           duration: 0.3,
         });
@@ -153,7 +153,14 @@ const Gallery = () => {
               $index={i}
               ref={(el) => (imgsRef.current[i] = el)}
             >
-              <ImageComp src={img} alt="gal-img" />
+              <Image
+                src={img}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
+                style={{ objectFit: "cover" }}
+                alt="gal-img"
+                priority
+              />
             </GalImg>
           ))}
         </GalleryContainer>
@@ -303,7 +310,3 @@ const GalImg = tw.div`
   overflow-hidden
   relative
 `;
-
-// bg-cover
-//   bg-no-repeat
-//   bg-center
